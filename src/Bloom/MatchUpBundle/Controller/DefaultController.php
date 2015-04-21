@@ -163,6 +163,10 @@ class DefaultController extends Controller
 		->getRepository('BloomMatchUpBundle:Rencontre');
 		$listerencontres = $repository->findAll();
 
+		$rencontresIdVainqueur[0] = 0;
+		$rencontresIdPerdant[0] =0;
+		$scorePerdant[0] =0;
+
 		for ($i=0; $i < count($listerencontres) ; $i++) {
 			$rencontresIdVainqueur[$i] = $listerencontres[$i] -> getIdVainqueur();
 			$rencontresIdPerdant[$i] = $listerencontres[$i] -> getIdPerdant();

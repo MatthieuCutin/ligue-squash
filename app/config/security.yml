@@ -1,7 +1,4 @@
 security:
-    providers:
-        in_memory:
-            memory: ~
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
         Bloom\UserBundle\Entity\User: sha512
@@ -16,11 +13,8 @@ security:
 
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        default:
-            anonymous: ~
 
         main_login:
             pattern:   ^/(login$|register|index|resetting)
