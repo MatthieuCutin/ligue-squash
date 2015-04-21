@@ -1,0 +1,8 @@
+parameters:
+#    bloom_user.example.class: Bloom\UserBundle\Example
+
+services:
+    bloom_user.profile.form.type:
+        class: Bloom\UserBundle\Form\Type\ProfileFormType
+        tags:
+            - { name: form.type, alias: bloom_user_profile }
