@@ -44,5 +44,7 @@ monolog:
 assetic:
     use_controller: "%use_assetic_controller%"
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    transport: gmail
+    username:  bloom.bundle@gmail.com
+    password:  Aalive124

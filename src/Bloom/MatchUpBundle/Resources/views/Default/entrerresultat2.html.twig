@@ -1,0 +1,33 @@
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Entrer Résultat{% endblock %}
+
+{% block body %}
+	<h1>Entrer un résultat</h1>
+
+{% if adversaire is defined %}
+
+Entrer le score contre {{adversaire}} :
+
+{% endif %}
+
+{% if form is defined %}
+	<form action="{{ path('bloom_match_up_entrer_resultat2') }}" method="post" {{ form_enctype(form) }}>
+	    {{ form_widget(form) }}
+	    <input type="submit" class="btn btn-primary" />
+	</form>
+{% endif %}
+
+{% if adversaire is defined %}
+
+
+Entrer le score du struc 2 contre {{adversaire}} :
+
+Vous avez 
+
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Classement{% endblock %}
+
+{% block body %}
+<h1>Classement</h1>
+
+
+<ul class="nav nav-tabs">
+  {% for i in 1..NombrePoules %}
+  <li><a href="#">Poule {{i}} </a></li>
+  {% endfor %}
+</ul>
+
+  <table class="table">
+    <tr>
+      <td>Joueur</td>
+      <td>1</td> 
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+    </tr> 
+{% for key1 in classementpoule%}
+  {% for key2 in key1 |slice (0,1) %}
+
+        <tr>
+          <td>1 {{ key1.0 }}</td>
+          <td>X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>2 {{ key1.1 }}</td>
+          <td></td>
+          <td>X</td>
+          <td></td>
+          <td></td>          
+        </tr>
+        <tr>
+          <td>3 {{ key1.2 }}</td>
+          <td></td>
+          <td></td>
+          <td>X</td>
+          <td></td>          
+        </tr>
+        <tr>
+          <td>4 {{ key1.3 }}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>X</td>          
+        </tr>
+          {% if key1.4 is defined %}
+          <tr>
+            <td>5 {{key1.4}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td> 
+            <td>X</td>          
+          </tr>
+          {% endif %}
+        </tr>
+        <tr><td></td></tr>
+    {% endfor %}
+{% endfor %}
+  </table>
+
+
+{% endblock %}

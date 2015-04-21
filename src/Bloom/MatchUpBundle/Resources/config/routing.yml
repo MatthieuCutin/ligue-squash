@@ -1,0 +1,40 @@
+
+bloom_match_up_index:
+    path:      /index
+    defaults: { _controller: BloomMatchUpBundle:Default:index }
+
+bloom_match_up_classement:
+    path:      /classement
+    defaults: { _controller: BloomMatchUpBundle:Default:classement }
+
+bloom_match_up_homepage:
+    path:      /homepage
+    defaults: { _controller: BloomMatchUpBundle:Default:homepage}
+
+bloom_match_up_matchup:
+    path:      /matchup
+    defaults: { _controller: BloomMatchUpBundle:Default:matchup }
+
+bloom_match_up_profil:
+    path:      /profil
+    defaults: { _controller: BloomMatchUpBundle:Default:profil }
+
+bloom_match_up_generer_poule:
+    path:      /genererpoule
+    defaults: { _controller: BloomMatchUpBundle:Default:genererpoule }
+
+bloom_match_up_afficher_poule:
+    path:      /afficherpoule
+    defaults: { _controller: BloomMatchUpBundle:Default:afficherpoule }
+
+bloom_match_up_entrer_resultat:
+    path:      /entrerresultat
+    defaults: { _controller: BloomMatchUpBundle:Default:entrerresultat }
+
+bloom_match_up_entrer_resultat2:
+    path:      /entrerresultat2
+    defaults: { _controller: BloomMatchUpBundle:Default:entrerresultat2 }
+
+bloom_match_up_afficher_poule:
+    path:      /afficherpoule
+    defaults: { _controller: BloomMatchUpBundle:Default:afficherpoule }
