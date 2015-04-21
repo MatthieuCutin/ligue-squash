@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -30,7 +30,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        []
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -67,3 +67,28 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# FOSUserBundle Configuration
+fos_user:
+    db_driver:     orm                           # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
+    firewall_name: main                          # Le nom du firewall derrière lequel on utilisera ces utilisateurs
+    user_class:    Bloom\UserBundle\Entity\User  # La classe de l'entité User que nous utilisons
+    from_email:
+        address:        bloom.bundle@gmail.com
+        sender_name:    Bloom Corp
+    profile:
+        form:
+            type: bloom_user_profile
+
+# Avalanche123 Imagine-Bundle
+avalanche_imagine:
+    filters:
+        my_thumb:
+            type:    thumbnail
+            options: { size: [360, 360], mode: outbound }
+        widen:
+            type:    relative_resize
+            options: { widen: 360 }
+        heighten:
+            type:    relative_resize
+            options: { heighten: 60 }
