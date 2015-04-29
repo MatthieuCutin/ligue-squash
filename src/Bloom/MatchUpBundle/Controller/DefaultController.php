@@ -136,7 +136,14 @@ class DefaultController extends Controller
 		if ($NumeroPoule == 0) {
 			$user = $this->container->get('security.context')->getToken()->getUser();
 
-			$NumeroPoule = $user -> getpoule();
+			if ($NumeroPoule = $user -> getpoule() > 0) {
+				$NumeroPoule = $user -> getpoule();
+			}
+			else{
+				$NumeroPoule = 1;
+			}
+
+			
 		}
 
 		$repository = $this->getDoctrine()
