@@ -7,10 +7,19 @@
 	<h1>Entrer un résultat</h1>
 
 {% if form is defined %}
-	<form action="{{ path('bloom_match_up_entrer_resultat') }}" method="post" {{ form_enctype(form) }}>
-	    {{ form_widget(form) }}
-	    <input type="submit" class="btn btn-primary" />
-	</form>
+
+	{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div>
+        {{ form_label(form.username, 'Nom de l\'adversaire') }}
+        {{ form_errors(form.username) }}
+        {{ form_widget(form.username) }}
+    </div>
+
+<input type="submit" class="btn btn-primary" />
+
+{{ form_end(form) }}
 {% endif %}
 
 {% if form2 is defined %}

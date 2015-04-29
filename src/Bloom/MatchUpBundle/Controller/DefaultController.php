@@ -131,11 +131,13 @@ class DefaultController extends Controller
 	
 	}
 
-	public function AfficherPouleAction()
+	public function AfficherPouleAction( $NumeroPoule = 0 )
 	{
-		$user = $this->container->get('security.context')->getToken()->getUser();
+		if ($NumeroPoule == 0) {
+			$user = $this->container->get('security.context')->getToken()->getUser();
 
-		$NumeroPoule = $user -> getpoule();
+			$NumeroPoule = $user -> getpoule();
+		}
 
 		$repository = $this->getDoctrine()
 		->getManager()

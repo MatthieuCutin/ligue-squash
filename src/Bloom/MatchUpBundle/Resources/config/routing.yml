@@ -36,5 +36,5 @@ bloom_match_up_entrer_resultat2:
     defaults: { _controller: BloomMatchUpBundle:Default:entrerresultat2 }
 
 bloom_match_up_afficher_poule:
-    path:      /afficherpoule
-    defaults: { _controller: BloomMatchUpBundle:Default:afficherpoule }
+    path:      /afficherpoule/{NumeroPoule}
+    defaults: { _controller: BloomMatchUpBundle:Default:afficherpoule, NumeroPoule: 0 }
