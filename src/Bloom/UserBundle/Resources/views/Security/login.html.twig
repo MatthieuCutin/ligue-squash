@@ -14,10 +14,10 @@
     <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
 
     <label for="password">{{ 'security.login.password'|trans }}</label>
-    <input type="password" id="password" name="_password" required="required" />
+    <input type="password" id="password" name="_password" required="required" /></br>
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+    <label for="remember_me"><input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    {{ 'security.login.remember_me'|trans }}</label>
 
     <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 </form>
