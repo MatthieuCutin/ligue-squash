@@ -11,44 +11,27 @@
 	{{ form_start(form) }}
     {{ form_errors(form) }}
 
-	    <div>
-	        {{ form_label(form.username, 'Nom de l\'adversaire') }}
-	        {{ form_errors(form.username) }}
-	        {{ form_widget(form.username) }}
+	    <div class="input-block-level">
+	        {{ form_label(form.User.username, 'Nom de l\'adversaire') }}
+	        {{ form_errors(form.User.username) }}
+	        {{ form_widget(form.User.username) }}
+	    </div>
+
+	    <div class="input-block-level">
+	        {{ form_label(form.IdVainqueur, 'Vainqueur') }}
+	        {{ form_errors(form.IdVainqueur) }}
+	        {{ form_widget(form.IdVainqueur) }}
+	    </div>
+
+	    <div class="input-block-level">
+	        {{ form_label(form.Scoreperdant, 'Score du perdant') }}
+	        {{ form_errors(form.Scoreperdant) }}
+	        {{ form_widget(form.Scoreperdant) }}
 	    </div>
 
 	<input type="submit" class="btn btn-primary" />
 
 	{{ form_end(form) }}
 {% endif %}
-
-{% if form2 is defined %}
-	{{ form_start(form2) }}
-    {{ form_errors(form2) }}
-
-	    <div>
-	        {{ form_label(form2.IdVainqueur, 'Vainqueur') }}
-	        {{ form_errors(form2.IdVainqueur) }}
-	        {{ form_widget(form2.IdVainqueur) }}
-	    </div>
-
-	    <div>
-	        {{ form_label(form2.Scoreperdant, 'Score du perdant') }}
-	        {{ form_errors(form2.Scoreperdant) }}
-	        {{ form_widget(form2.Scoreperdant) }}
-	    </div>
-
-	<input type="submit" class="btn btn-primary" />
-
-	{{ form_end(form2) }}	
-{% endif %}
-
-
-{% if adversaire is defined%}
-<ul>
-{{adversaire}}
-</ul>
-{% endif %}
-
 
 {% endblock %}

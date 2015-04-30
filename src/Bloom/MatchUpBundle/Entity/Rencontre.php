@@ -13,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Rencontre
 {
     /**
+     * @ORM\ManyToOne(targetEntity="Bloom\UserBundle\Entity\User", inversedBy="rencontres", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -120,5 +126,28 @@ class Rencontre
     public function getIdPerdant()
     {
         return $this->IdPerdant;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Bloom\UserBundle\Entity\User $user
+     * @return Rencontre
+     */
+    public function setUser(\Bloom\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Bloom\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

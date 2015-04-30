@@ -14,7 +14,6 @@ use Doctrine\ORM\EntityRepository;
 
 class AdversairePouleScoreFormType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -26,6 +25,8 @@ class AdversairePouleScoreFormType extends AbstractType
                 'choices'   => array('0' => '0', '1' => '1', '2' => '2'),
                 'required'  => true,
                 ))
+
+            ->add('User', 'bloom_adversaire_poule', array('mapped' => false));
         ;
     }
 
@@ -38,6 +39,7 @@ class AdversairePouleScoreFormType extends AbstractType
     {
       $resolver->setDefaults(array(
         'data_class' => 'Bloom\MatchUpBundle\Entity\Rencontre',
+        'cascade_validation' => true,
         'csrf_protection' => false,
         ));
     }

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
 * @ORM\Entity
@@ -17,18 +18,17 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class User extends BaseUser
 {
-
     /**
-     * @ORM\ManyToMany(targetEntity="Bloom\MatchUpBundle\Entity\Rencontre", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Bloom\MatchUpBundle\Entity\Rencontre", mappedBy="user", cascade={"persist"})
      */
-    private $rencontres;
+    protected $rencontres;
 
      /**
     * @ORM\Id
     * @ORM\Column(type="integer")
     * @ORM\GeneratedValue(strategy="AUTO")
     */
-     protected $id;
+    protected $id;
 
      /**
      * @var integer $age
@@ -144,6 +144,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->path = 'ann.png';
+        $this->rencontres = new ArrayCollection();
     }
 
     /**
@@ -502,16 +503,6 @@ class User extends BaseUser
     }
 
     /**
-     * Get sets
-     *
-     * @return integer 
-     */
-    public function getSets()
-    {
-        return $this->sets;
-    }
-
-    /**
      * Set nouvellepoule
      *
      * @param integer $nouvellepoule
@@ -535,95 +526,13 @@ class User extends BaseUser
     }
 
     /**
-     * Set match1
-     *
-     * @param integer $match1
-     * @return User
-     */
-    public function setMatch1($match1)
-    {
-        $this->match1 = $match1;
-    
-        return $this;
-    }
-
-    /**
-     * Get match1
+     * Get sets
      *
      * @return integer 
      */
-    public function getMatch1()
+    public function getSets()
     {
-        return $this->match1;
-    }
-
-    /**
-     * Set match2
-     *
-     * @param integer $match2
-     * @return User
-     */
-    public function setMatch2($match2)
-    {
-        $this->match2 = $match2;
-    
-        return $this;
-    }
-
-    /**
-     * Get match2
-     *
-     * @return integer 
-     */
-    public function getMatch2()
-    {
-        return $this->match2;
-    }
-
-    /**
-     * Set match3
-     *
-     * @param integer $match3
-     * @return User
-     */
-    public function setMatch3($match3)
-    {
-        $this->match3 = $match3;
-    
-        return $this;
-    }
-
-    /**
-     * Get match3
-     *
-     * @return integer 
-     */
-    public function getMatch3()
-    {
-        return $this->match3;
-    }
-
-    /**
-     * Set match4
-     *
-     * @param integer $match4
-     * @return User
-     */
-    public function setMatch4($match4)
-    {
-        $this->match4 = $match4;
-    
-        return $this;
-    }
-
-    /**
-     * Get match4
-     *
-     * @return integer 
-     */
-    public function getMatch4()
-    {
-        return $this->match4;
+        return $this->sets;
     }
 
     /**
@@ -635,6 +544,7 @@ class User extends BaseUser
     public function addRencontre(\Bloom\MatchUpBundle\Entity\Rencontre $rencontres)
     {
         $this->rencontres[] = $rencontres;
+        $rencontres->setUser($this);
     
         return $this;
     }

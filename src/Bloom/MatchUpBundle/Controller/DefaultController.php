@@ -19,110 +19,60 @@ class DefaultController extends Controller
 
 	public function EntrerResultatAction(Request $request)
 	{
-		$user = $this->container->get('security.context')->getToken()->getUser();
-
-		$pouleuser = $user-> getpoule();
-
-		$repository = $this->getDoctrine()
-		->getManager()
-		->getRepository('BloomUserBundle:User');
-		$classementpoule = $repository->findByPoule($pouleuser);
-
-        $securityContext = $this->container->get('security.context');
-        $form = $this->createForm(
-            new AdversairePouleFormType($securityContext)
-        );
+		$rencontre = new Rencontre();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+         $form = $this->createForm('bloom_adversaire_poule_score', $rencontre);
 
 	    $request = $this->get('request');
 
 	    if ($request->getMethod() == 'POST') {
 
-	      $form->bind($request);
+	      	$form->bind($request);
 
-	      if ($form->isValid()) {
+			if ($form->isValid()) {
 
-	      	$session = new Session();
+				$test = $form->get('IdVainqueur')->getData();
+				$scorePerdant = $form->get('Scoreperdant')->getData();
+				$adversaireUsername = $form->get('User')->getData();
 
-			$adversaire = $form -> getData();
-
-				$adversaire = (string) $adversaire;
-
-				$repository = $this->getDoctrine()
-				->getManager()
-				->getRepository('BloomUserBundle:User');
-				$adversaire = $repository->LoadUserByUsername($adversaire);
-
-			if ($adversaire !== NULL) {
-
-				$adversaireId = $adversaire -> getId();
-				$session->set('adversaireId', $adversaireId);
-			}
-
-	        $form2 = $this->createForm(
-           		new AdversairePouleScoreFormType()
-        	);
-
-			$form2->handleRequest($request);
-
-		    if ($form2->isValid()) {
-
-				$user = $this->container->get('security.context')->getToken()->getUser();
-
-				$rencontre = new Rencontre;
-				$em = $this->getDoctrine()
-					->getManager();
-
-				$rencontre = $form2 -> getData();
-
-				$scorePerdant = $rencontre -> getScorePerdant();
-
-				$adversaireId = $session->get('adversaireId');
+				$adversaireUsername = (string) $adversaireUsername;
 
 				$repository = $this->getDoctrine()
 				->getManager()
 				->getRepository('BloomUserBundle:User');
-				$adversaire = $repository->LoadUserById($adversaireId);
+				$adversaire = $repository->LoadUserByUsername($adversaireUsername);
 
-				if ($test = $rencontre -> getIdVainqueur() == 0) {
+				$rencontre -> setScorePerdant($scorePerdant);
+
+				if ($test == 0) {
 					$rencontre -> setIdVainqueur($user -> getId());
-					$rencontre -> setIdPerdant($adversaireId);
+					$rencontre -> setIdPerdant($adversaire -> getId());
 
 					$user -> setVictoires($user -> getVictoires() + 1);
 					$user -> setSets($user -> getSets() + 3);
 					$adversaire -> setSets($adversaire -> getSets() + $scorePerdant);
+
+					$user->addRencontre($rencontre);
+					$userManager = $this->get('fos_user.user_manager');
+	           		$userManager->updateUser($user);
 				}
-				elseif ($test = $rencontre -> getIdVainqueur() == 1) {
-					$rencontre -> setIdVainqueur($adversaireId);
+				elseif ($test == 1) {
+					$rencontre -> setIdVainqueur($adversaire -> getId());
 					$rencontre -> setIdPerdant($user -> getId());
 
 					$adversaire -> setVictoires($adversaire -> getVictoires() + 1);
 					$adversaire -> setSets($adversaire -> getSets() + 3);
-					$user -> setSets($user -> getSets() + $scorePerdant);														
-				}
+					$user -> setSets($user -> getSets() + $scorePerdant);
 
-    			$em->persist($rencontre);
-				$em->flush();
+					$adversaire->addRencontre($rencontre);
+					$userManager = $this->get('fos_user.user_manager');
+	           		$userManager->updateUser($adversaire);														
+				}				
 
+				$response = $this->forward('BloomMatchUpBundle:Default:AfficherPoule');
 
-
-				$user->addRencontre($rencontre);
-				$adversaire->addRencontre($rencontre);
-	            $userManager = $this->get('fos_user.user_manager');
-	            $userManager->updateUser($user);
-	            $userManager->updateUser($adversaire);
-
-
-			    $response = $this->forward('BloomMatchUpBundle:Default:afficherpoule', array(
-			        
-			    ));
-
-			    return $response;
+				return $response;
 			}
-
-			return $this->render('BloomMatchUpBundle:Default:entrerresultat.html.twig', array(
-				'form2' => $form2->createView(),
-				));
-	      }
 	  	}
 
 		return $this->render('BloomMatchUpBundle:Default:entrerresultat.html.twig', array(
