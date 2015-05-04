@@ -11,6 +11,10 @@
   margin-top: 10px;
 }
 
+.margin-left-15 {
+  margin-left: 15px;
+}
+
 .clearfix {
   *zoom: 1;
 }

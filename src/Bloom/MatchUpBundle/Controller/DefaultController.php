@@ -37,25 +37,50 @@ class DefaultController extends Controller
 
 				$adversaireUsername = (string) $adversaireUsername;
 
-				$repository = $this->getDoctrine()
+				$repositoryUser = $this->getDoctrine()
 				->getManager()
 				->getRepository('BloomUserBundle:User');
-				$adversaire = $repository->LoadUserByUsername($adversaireUsername);
+				$adversaire = $repositoryUser->LoadUserByUsername($adversaireUsername);
 
-				$rencontre -> setScorePerdant($scorePerdant);
+				$repositoryRencontre = $this->getDoctrine()
+				->getManager()
+				->getRepository('BloomMatchUpBundle:Rencontre');
+
+
+				$em = $this->getDoctrine()->getEntityManager();
 
 				if ($test == 0) {
 					$rencontre -> setIdVainqueur($user -> getId());
-					$rencontre -> setIdPerdant($adversaire -> getId());
+					$rencontre -> setIdPerdant($adversaire -> getId());	
 
 					$user -> setVictoires($user -> getVictoires() + 1);
 					$user -> setSets($user -> getSets() + 3);
 					$adversaire -> setSets($adversaire -> getSets() + $scorePerdant);
 
-					$user->addRencontre($rencontre);
-					$userManager = $this->get('fos_user.user_manager');
-	           		$userManager->updateUser($user);
+					$rencontreTest1 = $repositoryRencontre->findOneByRencontreByIdVainqueurAndIdPerdant($rencontre->getIdVainqueur(), $rencontre->getIdPerdant());
+					$rencontreTest2 = $repositoryRencontre->findOneByRencontreByIdVainqueurAndIdPerdant($rencontre->getIdPerdant(), $rencontre->getIdVainqueur());
+
+
+					if ($rencontreTest1) {
+						$rencontreTest1 -> setScorePerdant($scorePerdant);
+						$rencontreTest1 -> setIdVainqueur($user -> getId());
+						$rencontreTest1 -> setIdPerdant($adversaire -> getId());						
+						$em->flush();					
+					}
+					elseif ($rencontreTest2) {
+						$rencontreTest2 -> setScorePerdant($scorePerdant);
+						$rencontreTest2 -> setIdVainqueur($user -> getId());
+						$rencontreTest2 -> setIdPerdant($adversaire -> getId());						
+						$em->flush();					
+					}
+					else {
+						$rencontre -> setScorePerdant($scorePerdant);						
+						$user->addRencontre($rencontre);
+						$userManager = $this->get('fos_user.user_manager');
+		           		$userManager->updateUser($user);
+					}
 				}
+
 				elseif ($test == 1) {
 					$rencontre -> setIdVainqueur($adversaire -> getId());
 					$rencontre -> setIdPerdant($user -> getId());
@@ -64,9 +89,28 @@ class DefaultController extends Controller
 					$adversaire -> setSets($adversaire -> getSets() + 3);
 					$user -> setSets($user -> getSets() + $scorePerdant);
 
-					$adversaire->addRencontre($rencontre);
-					$userManager = $this->get('fos_user.user_manager');
-	           		$userManager->updateUser($adversaire);														
+					$rencontreTest1 = $repositoryRencontre->findOneByRencontreByIdVainqueurAndIdPerdant($rencontre->getIdVainqueur(), $rencontre->getIdPerdant());
+					$rencontreTest2 = $repositoryRencontre->findOneByRencontreByIdVainqueurAndIdPerdant($rencontre->getIdPerdant(), $rencontre->getIdVainqueur());
+
+
+					if ($rencontreTest1) {
+						$rencontreTest1 -> setScorePerdant($scorePerdant);
+						$rencontreTest1 -> setIdVainqueur($adversaire -> getId());
+						$rencontreTest1 -> setIdPerdant($user -> getId());						
+						$em->flush();					
+					}
+					elseif ($rencontreTest2) {
+						$rencontreTest2 -> setScorePerdant($scorePerdant);
+						$rencontreTest2 -> setIdVainqueur($adversaire -> getId());
+						$rencontreTest2 -> setIdPerdant($user -> getId());						
+						$em->flush();					
+					}
+					else {
+						$rencontre -> setScorePerdant($scorePerdant);						
+						$user->addRencontre($rencontre);
+						$userManager = $this->get('fos_user.user_manager');
+		           		$userManager->updateUser($user);
+					}								
 				}				
 
 				$response = $this->forward('BloomMatchUpBundle:Default:AfficherPoule');

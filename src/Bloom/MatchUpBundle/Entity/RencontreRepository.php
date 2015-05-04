@@ -36,4 +36,17 @@ class RencontreRepository extends EntityRepository
         return $qb->getQuery()
                   ->getOneOrNullResult();
     }
+
+    public function findOneByRencontreByIdVainqueurAndIdPerdant($IdVainqueur, $IdPerdant)
+    {
+        $qb = $this
+            ->createQueryBuilder('r')
+            ->where('r.idVainqueur = :idVainqueur')
+            ->andWhere('r.IdPerdant = :IdPerdant')
+            ->setParameter('idVainqueur', $IdVainqueur)
+            ->setParameter('IdPerdant', $IdPerdant);
+
+        return $qb->getQuery()
+                  ->getOneOrNullResult();
+    }    
 }
