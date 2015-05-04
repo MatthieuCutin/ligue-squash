@@ -1,10 +1,85 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="span12">
-	<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit foorm-inline">
-	    {{ form_widget(form) }}
-	    <div>
-	        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
-	    </div>
-	</form>
+	{{ form_start(form) }}
+		{{ form_errors(form) }}
+
+		    <div>
+		        {{ form_label(form.username) }}
+		        {{ form_errors(form.username) }}
+		        {{ form_widget(form.username) }}
+		    </div>
+
+		    <div>
+		        {{ form_label(form.age) }}
+		        {{ form_errors(form.age) }}
+		        {{ form_widget(form.age) }}
+		    </div>
+
+		    <div>
+		        {{ form_label(form.email) }}
+		        {{ form_errors(form.email) }}
+		        {{ form_widget(form.email) }}
+		    </div>
+
+		    <div>
+		        {{ form_label(form.tel, 'Téléphone') }}
+		        {{ form_errors(form.tel) }}
+		        {{ form_widget(form.tel) }}
+		    </div>
+
+		    <div class="input-block-level">
+		        {{ form_label(form.file) }}
+		        {{ form_errors(form.file) }}
+		        {{ form_widget(form.file) }}
+		    </div>
+
+		    <div>
+		        {{ form_label(form.lundi) }}
+		        {{ form_errors(form.lundi) }}
+		        {{ form_widget(form.lundi) }}
+		    </div>
+
+		    <div>
+		        {{ form_label(form.mardi) }}
+		        {{ form_errors(form.mardi) }}
+		        {{ form_widget(form.mardi) }}
+		    </div>
+
+		    <div>
+		        {{ form_label(form.mercredi) }}
+		        {{ form_errors(form.mercredi) }}
+		        {{ form_widget(form.mercredi) }}
+		    </div>
+
+		    <div>
+		        {{ form_label(form.jeudi) }}
+		        {{ form_errors(form.jeudi) }}
+		        {{ form_widget(form.jeudi) }}
+		    </div>
+
+		    <div>
+		        {{ form_label(form.vendredi) }}
+		        {{ form_errors(form.vendredi) }}
+		        {{ form_widget(form.vendredi) }}
+		    </div>
+
+		    <div>
+		        {{ form_label(form.samedi) }}
+		        {{ form_errors(form.samedi) }}
+		        {{ form_widget(form.samedi) }}
+		    </div>
+
+		    <div class="input-block-level">
+		        {{ form_label(form.current_password) }}
+		        {{ form_errors(form.current_password) }}
+		        {{ form_widget(form.current_password) }}
+		    </div>
+
+		<input type="submit" class="btn btn-primary" />
+		<a href="{{ path('fos_user_profile_show') }}" class="btn offset1">Annuler</a>
+
+	{{ form_end(form) }}
+
+
 </div>
