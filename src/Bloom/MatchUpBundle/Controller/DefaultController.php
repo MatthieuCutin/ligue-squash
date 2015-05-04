@@ -225,12 +225,7 @@ class DefaultController extends Controller
 		$connection = $em->getConnection();
 		$platform   = $connection->getDatabasePlatform();
   
-		$connection->executeUpdate($platform->getTruncateTableSQL('user_rencontre', true /* whether to cascade */));
-
-		$connection->executeQuery('SET FOREIGN_KEY_CHECKS = 0;');
-		$truncateSql = $platform->getTruncateTableSQL('rencontre');
-		$connection->executeUpdate($truncateSql);
-		$connection->executeQuery('SET FOREIGN_KEY_CHECKS = 1;');
+		$connection->executeUpdate($platform->getTruncateTableSQL('rencontre', false /* whether to cascade */));
 
 	    $response = $this->forward('BloomMatchUpBundle:Default:homepage');
 
