@@ -62,12 +62,26 @@ class DefaultController extends Controller
 
 
 					if ($rencontreTest1) {
+
+						$user -> setVictoires($user -> getVictoires() - 1);
+						$user -> setSets($user -> getSets() - 3);
+						$scorePerdantPrecedentMatch = $rencontreTest1 -> getScorePerdant();
+						$adversaire -> setSets($adversaire -> getSets() - $scorePerdantPrecedentMatch);
+
 						$rencontreTest1 -> setScorePerdant($scorePerdant);
 						$rencontreTest1 -> setIdVainqueur($user -> getId());
 						$rencontreTest1 -> setIdPerdant($adversaire -> getId());						
-						$em->flush();					
+						$em->flush();
+
+
 					}
 					elseif ($rencontreTest2) {
+
+						$adversaire -> setVictoires($adversaire -> getVictoires() - 1);
+						$adversaire -> setSets($adversaire -> getSets() - 3);
+						$scorePerdantPrecedentMatch = $rencontreTest2 -> getScorePerdant();
+						$user -> setSets($user -> getSets() - $scorePerdantPrecedentMatch);
+
 						$rencontreTest2 -> setScorePerdant($scorePerdant);
 						$rencontreTest2 -> setIdVainqueur($user -> getId());
 						$rencontreTest2 -> setIdPerdant($adversaire -> getId());						
@@ -94,12 +108,24 @@ class DefaultController extends Controller
 
 
 					if ($rencontreTest1) {
+
+						$adversaire -> setVictoires($adversaire -> getVictoires() - 1);
+						$adversaire -> setSets($adversaire -> getSets() - 3);
+						$scorePerdantPrecedentMatch = $rencontreTest1 -> getScorePerdant();
+						$user -> setSets($user -> getSets() - $scorePerdantPrecedentMatch);
+
 						$rencontreTest1 -> setScorePerdant($scorePerdant);
 						$rencontreTest1 -> setIdVainqueur($adversaire -> getId());
 						$rencontreTest1 -> setIdPerdant($user -> getId());						
 						$em->flush();					
 					}
 					elseif ($rencontreTest2) {
+
+						$user -> setVictoires($user -> getVictoires() - 1);
+						$user -> setSets($user -> getSets() - 3);
+						$scorePerdantPrecedentMatch = $rencontreTest2 -> getScorePerdant();
+						$adversaire -> setSets($adversaire -> getSets() - $scorePerdantPrecedentMatch);
+
 						$rencontreTest2 -> setScorePerdant($scorePerdant);
 						$rencontreTest2 -> setIdVainqueur($adversaire -> getId());
 						$rencontreTest2 -> setIdPerdant($user -> getId());						
