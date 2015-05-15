@@ -171,7 +171,7 @@ class DefaultController extends Controller
 		->getRepository('BloomUserBundle:User');
 		$listejoueurs = $repository->findAll();
 
-		$NombreJoueursParPoule = 4;
+		$NombreJoueursParPoule = $this->container->getParameter('NombreJoueursParPoule');
 
 		$NombreJoueurs = count($listejoueurs);
 		$NombrePoules = floor($NombreJoueurs/$NombreJoueursParPoule);
@@ -221,7 +221,7 @@ class DefaultController extends Controller
 		->getRepository('BloomUserBundle:User');
 		$listejoueurs = $repository->findAll();
 
-		$NombreJoueursParPoule = 4;
+		$NombreJoueursParPoule = $this->container->getParameter('NombreJoueursParPoule');
 
 		$NombreJoueurs = count($listejoueurs);
 		$NombrePoules = floor($NombreJoueurs/$NombreJoueursParPoule);
