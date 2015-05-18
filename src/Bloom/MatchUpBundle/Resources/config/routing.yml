@@ -31,10 +31,10 @@ bloom_match_up_entrer_resultat:
     path:      /entrerresultat
     defaults: { _controller: BloomMatchUpBundle:Default:entrerresultat }
 
-bloom_match_up_entrer_resultat2:
-    path:      /entrerresultat2
-    defaults: { _controller: BloomMatchUpBundle:Default:entrerresultat2 }
-
 bloom_match_up_afficher_poule:
     path:      /afficherpoule/{NumeroPoule}
     defaults: { _controller: BloomMatchUpBundle:Default:afficherpoule, NumeroPoule: 0 }
+
+bloom_match_up_mail:
+    path:     /mail
+    defaults: { _controller: BloomMatchUpBundle:Default:mail }

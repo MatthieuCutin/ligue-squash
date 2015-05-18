@@ -321,6 +321,23 @@ class DefaultController extends Controller
 		return $this->render('BloomMatchUpBundle:Default:index.html.twig');
 	}
 
+	public function mailAction()
+	{
+		$name = 'coucoutoi';
+	    $message = \Swift_Message::newInstance()
+	        ->setSubject('Hello Email2')
+	        ->setFrom('test@gspevents.fr')
+	        ->setTo('matthieu.cutin@gmail.com')
+	        ->setBody($this->renderView('BloomMatchUpBundle:Default:email.txt.twig', array('name' => $name)))
+	    ;
+	    $this->get('mailer')->send($message);
+
+	    $response = $this->forward('BloomMatchUpBundle:Default:homepage');
+
+	    return $response;
+
+	}
+
 	public function MatchupAction()
 	{
 

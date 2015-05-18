@@ -74,12 +74,17 @@
 		        {{ form_label(form.current_password) }}
 		        {{ form_errors(form.current_password) }}
 		        {{ form_widget(form.current_password) }}
+	        	<a href="{{ path('fos_user_change_password') }}" class="btn margin-left-15">Modifier mon mot de passe</a>
 		    </div>
+
+
 
 		<input type="submit" class="btn btn-primary" />
 		<a href="{{ path('fos_user_profile_show') }}" class="btn margin-left-15">Annuler</a>
 
 	{{ form_end(form) }}
+
+	<a href="{{ path('fos_user_profile_show') }}" class="btn margin-left-15">Annuler</a>
 
 
 </div>
