@@ -1,0 +1,15 @@
+ceci est un email et cette fois c'est bon pour le mode dev
+
+    mailer_transport: smtp
+    mailer_host: ssl0.ovh.net
+    mailer_user: test@gspevents.fr
+    mailer_password: Aalive124
+
+    swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+    encryption: ssl
+    auth_mode: login
