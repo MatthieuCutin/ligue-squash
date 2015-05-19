@@ -77,7 +77,7 @@ fos_user:
     firewall_name: main                          # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    Bloom\UserBundle\Entity\User  # La classe de l'entité User que nous utilisons
     from_email:
-        address:        bloom.bundle@gmail.com
+        address:        test@gspevents.fr
         sender_name:    Bloom Corp
     profile:
         form:
