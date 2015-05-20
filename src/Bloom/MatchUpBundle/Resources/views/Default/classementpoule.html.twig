@@ -3,8 +3,9 @@
 {% block title %}{{ parent() }} - Classement{% endblock %}
 
 {% block body %}
-<h1>Poule {{NumeroPoule}}</h1>
 
+{% if NumeroPoule is defined %}
+<h1>Poule {{NumeroPoule}}</h1>
 
 <ul class="nav nav-pills">
   {% for i in 1..NombrePoules %}
@@ -12,7 +13,7 @@
   {% endfor %}
 </ul>
 
-  <table class="table table-hover table-bordered">
+<table class="table table-hover table-bordered">
     <tr>
       <td># Joueur</td>
 {% for j in classementpoule%}
@@ -91,5 +92,10 @@
   </table>
   
   <a href="{{ path('bloom_match_up_entrer_resultat') }}" class="btn btn-primary margin-top-10">Entrer un résultat</a>
+
+{% else %}
+  <p> Aucune poule n'est encore lancée.</p>  
+
+{% endif %}
 
 {% endblock %}

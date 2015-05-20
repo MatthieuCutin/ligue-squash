@@ -162,8 +162,6 @@ class DefaultController extends Controller
 			else{
 				$NumeroPoule = 1;
 			}
-
-			
 		}
 
 		$repository = $this->getDoctrine()
@@ -174,7 +172,8 @@ class DefaultController extends Controller
 		$NombreJoueursParPoule = $this->container->getParameter('NombreJoueursParPoule');
 
 		$NombreJoueurs = count($listejoueurs);
-		$NombrePoules = floor($NombreJoueurs/$NombreJoueursParPoule);
+		$NombrePoules = floor($NombreJoueurs/$NombreJoueursParPoule); 
+		if ($NombrePoules ==0) {return $this->render('BloomMatchUpBundle:Default:classementpoule.html.twig');}
 		$NombreGrandesPoules = $NombreJoueurs % $NombrePoules;
 
 
