@@ -19,8 +19,8 @@
 
 	    	<div class="span5">
 	    		<p>{{ user.username }}</p>
-	    		<p>{{ user.age }} ans</p>   		
-	    		<p>{{ user.tel }}</p>
+	    		<p>{% if user.age %}{{ user.age }} ans{% else %}non renseigné{% endif %}</p>   		
+	    		<p>{% if user.tel %}{{ user.tel }}{% else %}non renseigné{% endif %}</p>
 	    		<p>{{ user.email }}</p>
 	    		<p></br>{% if user.participation %}oui{% else %}non{% endif %}</p>
 	    	</div>
@@ -38,7 +38,7 @@
 
 			<div class="span5">
 				<p>{{ user.lundi }}</p>
-				<p>{{ user.mardi }} ans</p>
+				<p>{{ user.mardi }}</p>
 				<p>{{ user.mercredi }}</p>    		
 				<p>{{ user.jeudi }}</p>
 				<p>{{ user.vendredi }}</p>
