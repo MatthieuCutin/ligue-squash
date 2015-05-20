@@ -135,6 +135,11 @@ class User extends BaseUser
     private $samedi;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $participation;
+
+    /**
      * @Assert\Image(maxSize="5000000")
      */
     public $file;
@@ -567,5 +572,28 @@ class User extends BaseUser
     public function getRencontres()
     {
         return $this->rencontres;
+    }
+
+    /**
+     * Set participation
+     *
+     * @param boolean $participation
+     * @return User
+     */
+    public function setParticipation($participation)
+    {
+        $this->participation = $participation;
+    
+        return $this;
+    }
+
+    /**
+     * Get participation
+     *
+     * @return boolean 
+     */
+    public function getParticipation()
+    {
+        return $this->participation;
     }
 }

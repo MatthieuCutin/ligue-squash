@@ -13,6 +13,7 @@
 	    		<p>Age :</p>  		
 	    		<p>Téléphone :</p>    				
 	    		<p>Email :</p>
+	    		<p>Je participe à la prochaine poule :</p>
 	    	</div>
 
 
@@ -21,6 +22,7 @@
 	    		<p>{{ user.age }} ans</p>   		
 	    		<p>{{ user.tel }}</p>
 	    		<p>{{ user.email }}</p>
+	    		<p></br>{% if user.participation %}oui{% else %}non{% endif %}</p>
 	    	</div>
 
     		<p><em>Disponibilités</em></p>

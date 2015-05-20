@@ -34,6 +34,7 @@ class ProfileFormType extends AbstractType
             ->add('age', null, array('label' => 'Age', 'required' => false))
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('tel', null, array('label' => 'Téléphone', 'translation_domain' => 'FOSUserBundle', 'required' => false))
+            ->add('participation', 'checkbox', array('label' => 'Je participe à la prochaine poule', 'translation_domain' => 'FOSUserBundle', 'required' => false))
             ->add('file', 'file', array('label' => 'Photo de profil', 'translation_domain' => 'FOSUserBundle', 'required' => false))            
             ->add('lundi', null, array('label' => 'Disponibilité le lundi', 'translation_domain' => 'FOSUserBundle', 'required' => false))
             ->add('mardi', null, array('label' => 'Disponibilité le mardi', 'translation_domain' => 'FOSUserBundle', 'required' => false))
