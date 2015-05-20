@@ -344,22 +344,26 @@ class DefaultController extends Controller
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
 		//Je récupère les joueurs de la poule
+		if ($user->getpoule() !== NULL) {
+			$repository = $this->getDoctrine()
+			->getManager()
+			->getRepository('BloomUserBundle:User');
+			$joueurs = $repository->FindByPouleAndName($user -> getpoule());
 
-		$repository = $this->getDoctrine()
-		->getManager()
-		->getRepository('BloomUserBundle:User');
-		$joueurs = $repository->FindByPouleAndName($user -> getpoule());
-
-		for ($i=0; $i < count($joueurs); $i++) { 
-			if ($joueurs[$i] !== $user) {
-				$joueursPasses[$i] = $joueurs[$i];
+			for ($i=0; $i < count($joueurs); $i++) { 
+				if ($joueurs[$i] !== $user) {
+					$joueursPasses[$i] = $joueurs[$i];
+				}
 			}
-		}
 
-	    return $this->render('BloomMatchUpBundle:Default:matchup.html.twig', array(
-	    	'user'          => $user,
-	    	'joueursPasses' => $joueursPasses
-	    	));
+		    return $this->render('BloomMatchUpBundle:Default:matchup.html.twig', array(
+		    	'user'          => $user,
+		    	'joueursPasses' => $joueursPasses
+		    	));
+		}
+		else {
+		    return $this->render('BloomMatchUpBundle:Default:matchup.html.twig');
+		}
 	}
 
 	public function ProfilAction()

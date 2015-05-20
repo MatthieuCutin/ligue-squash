@@ -5,25 +5,33 @@
 {% block body %}
 <h1>MatchUp</h1>
 
-<div class="row span10">
-  {% for j in joueursPasses %}
-    <div class="thumbnail span3">
-	  <img src="{{ asset('img/profile/' ~ j.path) }}" alt="" class="span3">
-      <h3>{{ j.username }}</h3>
-      <p>Lundi : {{j.lundi}}</p>
-      <p>Mardi : {{j.mardi}}</p>
-      <p>Mercredi : {{j.mercredi}}</p>
-      <p>Jeudi : {{j.jeudi}}</p>
-      <p>Vendredi : {{j.vendredi}}</p>
-      <p>Samedi : {{j.samedi}}</p>
-      	<form action="{{ path('bloom_match_up_classement') }}" method="post">
-		    <input type="submit" value="Rencontrer" class="btn btn-primary"/>
-		</form>
-      	<form action="{{ path('bloom_match_up_profil') }}" method="post">
-		    <input type="submit" name="profil1" value="profil" class="btn margin-left-15"/>
-		</form>
-    </div>
-  {% endfor %}
-</div>
+{% if joueursPasses is defined%}
+
+  <div class="row span10">
+    {% for j in joueursPasses %}
+      <div class="thumbnail span3">
+  	  <img src="{{ asset('img/profile/' ~ j.path) }}" alt="" class="span3">
+        <h3>{{ j.username }}</h3>
+        <p>Lundi : {{j.lundi}}</p>
+        <p>Mardi : {{j.mardi}}</p>
+        <p>Mercredi : {{j.mercredi}}</p>
+        <p>Jeudi : {{j.jeudi}}</p>
+        <p>Vendredi : {{j.vendredi}}</p>
+        <p>Samedi : {{j.samedi}}</p>
+        	<form action="{{ path('bloom_match_up_classement') }}" method="post">
+  		    <input type="submit" value="Rencontrer" class="btn btn-primary"/>
+  		</form>
+        	<form action="{{ path('bloom_match_up_profil') }}" method="post">
+  		    <input type="submit" name="profil1" value="profil" class="btn margin-left-15"/>
+  		</form>
+      </div>
+    {% endfor %}
+  </div>
+
+{% else %}
+  <p>Vous n'êtes inscrit dans aucune poule.</p>
+  <p>Pour vous inscrire à la prochaine, vérifiez dans les paramètres de votre profil que l'option "participation à la prochaine poule" est validée.</p>
+
+{% endif %}
 
 {% endblock %}
