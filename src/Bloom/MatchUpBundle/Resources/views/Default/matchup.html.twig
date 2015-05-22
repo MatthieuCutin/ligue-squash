@@ -7,11 +7,12 @@
 
 {% if joueursPasses is defined%}
 
-  <div class="row span10">
+  <div class="rrow">
     {% for j in joueursPasses %}
-      <div class="thumbnail span3">
-  	  <img src="{{ asset('img/profile/' ~ j.path) }}" alt="" class="span3">
-        <h3>{{ j.username }}</h3>
+      <div class="thumbnail rrow">
+  	   <img src="{{ asset('img/profile/' ~ j.path) }}" alt="" class="span3">
+       <div class="offset3">
+        <h4>{{ j.username }}</h4>
         <p>Lundi : {{j.lundi}}</p>
         <p>Mardi : {{j.mardi}}</p>
         <p>Mercredi : {{j.mercredi}}</p>
@@ -24,6 +25,7 @@
         	<form action="{{ path('bloom_match_up_profil') }}" method="post">
   		    <input type="submit" name="profil1" value="profil" class="btn margin-left-15"/>
   		</form>
+      </div>
       </div>
     {% endfor %}
   </div>
