@@ -149,6 +149,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->path = 'ann.png';
+        $this->participation = true;
         $this->rencontres = new ArrayCollection();
     }
 
