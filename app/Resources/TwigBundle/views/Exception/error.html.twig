@@ -1,0 +1,15 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Page introuvable {% endblock %}
+
+{% block body %}
+
+    <body>
+        <h3>La page recherchée n'existe pas</h3> </br>
+        <div class="row-fluid">
+	        <span class="span5"><img src="{{ asset('img/pagenontrouvee.jpg') }}" /></span>
+
+	        	<span class="span6">Merci de vérifier que l'URL entrée est exacte. Pour poursuivre la navigation rendez-vous sur <a href="squash.bloomweb.fr/Symfony/web/homepage">la page d'accueil.</a></span>
+    	</div>
+    </body>
+{% endblock %}

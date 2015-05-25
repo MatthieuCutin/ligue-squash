@@ -17,6 +17,11 @@
 
 .margin-left-30 {
   margin-left: 30px;
+  border: 1px black solid;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .login {
