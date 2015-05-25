@@ -304,7 +304,6 @@ class DefaultController extends Controller
 
 	public function HomepageAction()
 	{
-
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomUserBundle:User');
@@ -315,31 +314,8 @@ class DefaultController extends Controller
 			    	));
 	}
 
-	public function IndexAction()
-	{
-		return $this->render('BloomMatchUpBundle:Default:index.html.twig');
-	}
-
-	public function mailAction()
-	{
-		$name = 'coucoutoi';
-	    $message = \Swift_Message::newInstance()
-	        ->setSubject('Hello Email2')
-	        ->setFrom('test@gspevents.fr')
-	        ->setTo('matthieu.cutin@gmail.com')
-	        ->setBody($this->renderView('BloomMatchUpBundle:Default:email.txt.twig', array('name' => $name)))
-	    ;
-	    $this->get('mailer')->send($message);
-
-	    $response = $this->forward('BloomMatchUpBundle:Default:homepage');
-
-	    return $response;
-
-	}
-
 	public function MatchupAction()
 	{
-
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
 		//Je récupère les joueurs de la poule

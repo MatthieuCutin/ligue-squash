@@ -42,6 +42,7 @@
   background: url(../img/login.jpg) no-repeat center fixed; 
   -webkit-background-size: cover; /* pour anciens Chrome et Safari */
   background-size: cover; /* version standardisée */
+  bbackground:rgba(255,255,255,0.3);
 }
 
 .body-register {
@@ -675,6 +676,8 @@ a:focus {
   margin-right: auto;
   margin-left: auto;
   *zoom: 1;
+  background:rgba(255,255,255,1);
+  padding: 15px;
 }
 
 .container:before,
