@@ -1,5 +1,8 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
+<div class="login span5 offset3">
+    <h3>S'enregistrer</h3>
+
 {{ form_start(form) }}
 {{ form_errors(form) }}
 
@@ -18,9 +21,11 @@
     <div class="input-block-level">
         {{ form_errors(form.plainPassword) }}
         {{ form_widget(form.plainPassword) }}
-    </div>
+    </div></br>
 
 <input type="submit" class="btn btn-primary" />
+
+</div>
 
 {{ form_end(form) }}
 

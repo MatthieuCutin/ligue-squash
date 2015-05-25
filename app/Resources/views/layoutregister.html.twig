@@ -8,7 +8,7 @@
     {% endblock %}
   </head>
 
-  <body>
+  <body class="body-register">
     <div class="container">
       <div id="header" class="hero-unit">
         <h1>MatchUp Bundle</h1>
@@ -19,7 +19,6 @@
         <div class="navbar-inner">
           <a class="brand" href="#">Match Up</a>
           <ul class="nav">
-            <li class="active"><a href="{{ path('bloom_match_up_homepage') }}">Accueil</a></li>
             <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
             <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
           </ul>

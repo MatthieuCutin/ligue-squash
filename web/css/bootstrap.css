@@ -19,6 +19,43 @@
   margin-left: 30px;
 }
 
+.login {
+  background:rgba(0,0,0,0.6);
+  color: white;
+  padding: 15px;
+  -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+        border-radius: 6px;
+}
+
+.login a {
+  color: white;
+}
+
+.body-login {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
+  background: url(../img/login.jpg) no-repeat center fixed; 
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  background-size: cover; /* version standardisée */
+}
+
+.body-register {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
+  background: url(../img/register.jpg) no-repeat center fixed; 
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  background-size: cover; /* version standardisée */
+}
+
 .clearfix {
   *zoom: 1;
 }

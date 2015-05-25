@@ -17,7 +17,7 @@ security:
             security: false
 
         main_login:
-            pattern:   ^/(login$|register|index|resetting|console)
+            pattern:   ^/(login$|register|resetting|console)
             anonymous: true
 
         main:
@@ -30,7 +30,7 @@ security:
                 default_target_path: /homepage
             logout:
                 path:   fos_user_security_logout
-                target: /index
+                target: /register
                 invalidate_session: false
             remember_me:
                 key:        %secret%  # %secret% est un paramètre de parameters.yml
