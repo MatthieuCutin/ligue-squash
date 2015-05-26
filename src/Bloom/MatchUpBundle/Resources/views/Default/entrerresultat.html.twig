@@ -33,6 +33,10 @@
 	<a href="{{ path('bloom_match_up_afficher_poule') }}" class="btn margin-left-15">Annuler</a>
 
 	{{ form_end(form) }}
+
+{% else %}
+	<p>Vous n'êtes inscrit dans aucune poule. Merci de vérifier dans votre page profil que l'option "je participe à la prochaine poule" est validée.</p>
+
 {% endif %}
 
 {% endblock %}

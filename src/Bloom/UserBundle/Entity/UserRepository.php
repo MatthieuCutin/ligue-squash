@@ -19,6 +19,14 @@ class UserRepository extends EntityRepository
                   ->getOneOrNullResult();
     }
 
+    public function findAll()
+    {
+		$qb = $this->createQueryBuilder('u');
+
+		return $qb->getQuery()
+				  ->getResult();
+    }
+
 	public function loadUserById($Id)
     {
         $qb = $this
@@ -91,12 +99,50 @@ class UserRepository extends EntityRepository
 	{
 		$qb = $this->_em->createQueryBuilder();
 		$qb->select('u')
-		->from('BloomUserBundle:User', 'u')	
+		->from('BloomUserBundle:User', 'u')
+		->where('u.participation = :participation')
+		->setParameter('participation', true)
 		->orderBy('u.nouvellepoule', 'ASC')
 		->addOrderBy('u.victoires', 'ASC')
 		->addOrderBy('u.sets', 'ASC');
 
 		return $qb->getQuery()
 				  ->getResult();
-	}	
+	}
+
+	public function FindActuelsParticipants()
+	{
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select('u')
+		->from('BloomUserBundle:User', 'u')	
+		->where('u.poule > :poule')
+		->setParameter('poule', 0);
+
+		return $qb->getQuery()
+				  ->getResult();
+	}
+
+	public function FindFutursParticipants()
+	{
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select('u')
+		->from('BloomUserBundle:User', 'u')	
+		->where('u.participation = :participation')
+		->setParameter('participation', true);
+
+		return $qb->getQuery()
+				  ->getResult();
+	}
+
+		public function FindNoFutursParticipants()
+	{
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select('u')
+		->from('BloomUserBundle:User', 'u')	
+		->where('u.participation = :participation')
+		->setParameter('participation', false);
+
+		return $qb->getQuery()
+				  ->getResult();
+	}
 }

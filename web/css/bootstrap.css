@@ -37,6 +37,18 @@
   color: white;
 }
 
+.body-layout {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
+  background: url(../img/login.jpg) no-repeat center fixed; 
+  -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+  background-size: cover; /* version standardisée */
+}
+
 .body-login {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -47,7 +59,6 @@
   background: url(../img/login.jpg) no-repeat center fixed; 
   -webkit-background-size: cover; /* pour anciens Chrome et Safari */
   background-size: cover; /* version standardisée */
-  bbackground:rgba(255,255,255,0.3);
 }
 
 .body-register {
@@ -683,6 +694,14 @@ a:focus {
   *zoom: 1;
   background:rgba(255,255,255,1);
   padding: 15px;
+}
+
+.container-login {
+  margin-right: auto;
+  margin-left: auto;
+  *zoom: 1;
+  padding: 15px;
+  width: 940px;
 }
 
 .container:before,
