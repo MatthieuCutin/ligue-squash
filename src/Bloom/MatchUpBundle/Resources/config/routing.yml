@@ -16,8 +16,8 @@ bloom_match_up_matchup:
     defaults: { _controller: BloomMatchUpBundle:Default:matchup }
 
 bloom_match_up_profil:
-    path:      /profil
-    defaults: { _controller: BloomMatchUpBundle:Default:profil }
+    path:      /profil/{idAdversaire}
+    defaults: { _controller: BloomMatchUpBundle:Default:profil, idAdversaire: 1 }
 
 bloom_match_up_generer_poule:
     path:      /genererpoule

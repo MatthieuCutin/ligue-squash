@@ -95,13 +95,13 @@ class UserRepository extends EntityRepository
 				  ->getResult();
 	}	
 
-	public function FindByPouleAndVicAndSetsDESC()
+	public function findByPouleAndVicAndSetsDESC()
 	{
 		$qb = $this->_em->createQueryBuilder();
 		$qb->select('u')
 		->from('BloomUserBundle:User', 'u')
 		->where('u.participation = :participation')
-		->setParameter('participation', true)
+		->setParameter('participation', 1)
 		->orderBy('u.nouvellepoule', 'ASC')
 		->addOrderBy('u.victoires', 'ASC')
 		->addOrderBy('u.sets', 'ASC');
@@ -110,7 +110,7 @@ class UserRepository extends EntityRepository
 				  ->getResult();
 	}
 
-	public function FindActuelsParticipants()
+	public function findActuelsParticipants()
 	{
 		$qb = $this->_em->createQueryBuilder();
 		$qb->select('u')
@@ -122,25 +122,25 @@ class UserRepository extends EntityRepository
 				  ->getResult();
 	}
 
-	public function FindFutursParticipants()
+	public function findFutursParticipants()
 	{
 		$qb = $this->_em->createQueryBuilder();
 		$qb->select('u')
 		->from('BloomUserBundle:User', 'u')	
 		->where('u.participation = :participation')
-		->setParameter('participation', true);
+		->setParameter('participation', 1);
 
 		return $qb->getQuery()
 				  ->getResult();
 	}
 
-		public function FindNoFutursParticipants()
+		public function findNoFutursParticipants()
 	{
 		$qb = $this->_em->createQueryBuilder();
 		$qb->select('u')
 		->from('BloomUserBundle:User', 'u')	
 		->where('u.participation = :participation')
-		->setParameter('participation', false);
+		->setParameter('participation', 0);
 
 		return $qb->getQuery()
 				  ->getResult();

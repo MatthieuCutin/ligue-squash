@@ -7,7 +7,6 @@
 
 {% if joueursPasses is defined%}
 
-  <div class="rrow">
     {% for j in joueursPasses %}
       <div class="thumbnail rrow">
   	   <img src="{{ asset('img/profile/' ~ j.path) }}" alt="" class="span3">
@@ -19,16 +18,10 @@
         <p>Jeudi : {{j.jeudi}}</p>
         <p>Vendredi : {{j.vendredi}}</p>
         <p>Samedi : {{j.samedi}}</p>
-        	<form action="{{ path('bloom_match_up_classement') }}" method="post">
-  		    <input type="submit" value="Rencontrer" class="btn btn-primary"/>
-  		</form>
-        	<form action="{{ path('bloom_match_up_profil') }}" method="post">
-  		    <input type="submit" name="profil1" value="profil" class="btn margin-left-15"/>
-  		</form>
+        <a href="{{ path('bloom_match_up_profil' , { 'idAdversaire' : j.id }) }}" class="btn btn-primary">Rencontrer</a>
       </div>
       </div>
     {% endfor %}
-  </div>
 
 {% else %}
   <p>Vous n'êtes inscrit dans aucune poule.</p>

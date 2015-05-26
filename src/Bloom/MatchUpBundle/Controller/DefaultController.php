@@ -227,10 +227,10 @@ class DefaultController extends Controller
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomUserBundle:User');
-		$listeActuelsParticipants = $repository->FindActuelsParticipants();
+		$listeActuelsParticipants = $repository->findActuelsParticipants();
 
 		//je récupère ceux qui veulent participer
-		$listeFutursParticipants = $repository->FindFutursParticipants();
+		$listeFutursParticipants = $repository->findFutursParticipants();
 
 		for ($i=0; $i < count($listeFutursParticipants); $i++) { 
 			$listeFutursParticipants[$i] -> setNouvellePoule(0);
@@ -273,7 +273,7 @@ class DefaultController extends Controller
 		}
 
 		//je sors les anciens joueurs qui ne veulent pas faire la suivante
-		$listeNoFutursParticipants = $repository->FindNoFutursParticipants();
+		$listeNoFutursParticipants = $repository->findNoFutursParticipants();
 
 		for ($i=0; $i < count($listeNoFutursParticipants); $i++) { 
 			$listeNoFutursParticipants[$i] -> setNouvellePoule(NULL);
@@ -282,7 +282,7 @@ class DefaultController extends Controller
 		}
 
 		//on obtient le classement des joueurs à la prochaine
-		$NouveauClassementJoueurs = $repository->FindByPouleAndVicAndSetsDESC();
+		$NouveauClassementJoueurs = $repository->findByPouleAndVicAndSetsDESC();
 
 		//on détermine le nombre de poules
 		$NombreJoueursParPoule = $this->container->getParameter('NombreJoueursParPoule');
@@ -343,7 +343,7 @@ class DefaultController extends Controller
 		$connection = $em->getConnection();
 		$platform   = $connection->getDatabasePlatform();
   
-		$connection->executeUpdate($platform->getTruncateTableSQL('rencontre', false /* whether to cascade */));
+		$connection->executeUpdate($platform->getTruncateTableSQL('Rencontre', false /* whether to cascade */));
 
 	    $response = $this->forward('BloomMatchUpBundle:Default:homepage');
 
@@ -390,8 +390,15 @@ class DefaultController extends Controller
 		}
 	}
 
-	public function ProfilAction()
+	public function ProfilAction($idAdversaire)
 	{
-		return $this->render('BloomMatchUpBundle:Default:homepage.html.twig');
+		$repository = $this->getDoctrine()
+		->getManager()
+		->getRepository('BloomUserBundle:User');
+		$adversaire = $repository->loadUserById($idAdversaire);
+
+		return $this->render('BloomUserBundle:Profile:showAdversaire.html.twig', array(
+            'user' => $adversaire
+        ));
 	}
 }

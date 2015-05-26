@@ -1,0 +1,49 @@
+{% trans_default_domain 'BloomUserBundle' %}
+
+<div class="fos_user_user_show">
+	<div class="row">
+		<div class="span4 text-center">
+			<img src="{{ asset('img/profile/' ~ user.path) }}" />
+			<a href="{{ path('bloom_match_up_homepage') }}" class="btn btn-primary margin-top-10">Rencontrer</a>
+		</div>
+		<div class="span8">
+			<p><em>Profil</em></p>			
+			<div class="span2">
+				<p>Nom d'utilisateur :</p>
+	    		<p>Age :</p>  		
+	    		<p>Téléphone :</p>    				
+	    		<p>Email :</p>
+	    		<p>Je participe à la prochaine poule :</p>
+	    	</div>
+
+
+	    	<div class="span5">
+	    		<p>{{ user.username }}</p>
+	    		<p>{% if user.age %}{{ user.age }} ans{% else %}non renseigné{% endif %}</p>   		
+	    		<p>{% if user.tel %}{{ user.tel }}{% else %}non renseigné{% endif %}</p>
+	    		<p>{{ user.email }}</p>
+	    		<p></br>{% if user.participation %}oui{% else %}non{% endif %}</p>
+	    	</div>
+
+    		<p><em>Disponibilités</em></p>
+			<div class="span2">
+				<p>Lundi :</p>
+				<p>Mardi :</p>
+				<p>Mercredi :</p>    		
+				<p>Jeudi :</p>    				
+				<p>Vendredi :</p>
+				<p>Samedi :</p>
+			</div>
+
+
+			<div class="span5">
+				<p>{{ user.lundi }}</p>
+				<p>{{ user.mardi }}</p>
+				<p>{{ user.mercredi }}</p>    		
+				<p>{{ user.jeudi }}</p>
+				<p>{{ user.vendredi }}</p>
+				<p>{{ user.samedi }}</p>
+			</div>
+    	</div>
+	</div>
+</div>
