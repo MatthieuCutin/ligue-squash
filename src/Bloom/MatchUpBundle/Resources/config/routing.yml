@@ -8,7 +8,7 @@ bloom_match_up_classement:
     defaults: { _controller: BloomMatchUpBundle:Default:classement }
 
 bloom_match_up_homepage:
-    path:      /homepage
+    path:      /
     defaults: { _controller: BloomMatchUpBundle:Default:homepage}
 
 bloom_match_up_matchup:
@@ -35,6 +35,22 @@ bloom_match_up_afficher_poule:
     path:      /afficherpoule/{NumeroPoule}
     defaults: { _controller: BloomMatchUpBundle:Default:afficherpoule, NumeroPoule: 0 }
 
-bloom_match_up_mail:
-    path:     /mail
-    defaults: { _controller: BloomMatchUpBundle:Default:mail }
+bloom_match_up_admin:
+    path:     /admin
+    defaults: { _controller: BloomMatchUpBundle:Admin:dashboard }
+
+bloom_match_up_admin_ajouter_profil:
+    path:     /admin/ajouter-profil
+    defaults: { _controller: BloomMatchUpBundle:Admin:ajouterProfil }
+
+bloom_match_up_admin_supprimer_profil:
+    path:     /admin/supprimer-profil
+    defaults: { _controller: BloomMatchUpBundle:Admin:supprimerProfil }
+
+bloom_match_up_admin_modifier_profil:
+    path:     /admin/modifier-profil
+    defaults: { _controller: BloomMatchUpBundle:Admin:modifierProfil }
+
+bloom_match_up_admin_modifier_resultat:
+    path:     /admin/modifier-resultat
+    defaults: { _controller: BloomMatchUpBundle:Admin:modifierResultat }

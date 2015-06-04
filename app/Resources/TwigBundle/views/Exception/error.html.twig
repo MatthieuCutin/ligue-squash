@@ -9,7 +9,7 @@
         <div class="row-fluid">
 	        <span class="span5"><img src="{{ asset('img/pagenontrouvee.jpg') }}" /></span>
 
-	        	<span class="span6">Merci de vérifier que l'URL entrée est exacte. Pour poursuivre la navigation rendez-vous sur <a href="squash.bloomweb.fr/Symfony/web/homepage">la page d'accueil.</a></span>
+	        	<span class="span6">Merci de vérifier que l'URL entrée est exacte. Pour poursuivre la navigation rendez-vous sur <a href="{{ path('bloom_match_up_homepage') }}">la page d'accueil.</a></span>
     	</div>
     </body>
 {% endblock %}
