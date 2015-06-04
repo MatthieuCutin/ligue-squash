@@ -57,6 +57,14 @@ class RegistrationController extends BaseController
                 $response = new RedirectResponse($url);
             }
 
+            $message = \Swift_Message::newInstance()
+            ->setSubject('Bienvenue dans la Mini-Ligue')
+            ->setFrom('test@gspevents.fr')
+            ->setTo($user->getemail())
+            ->setBody($this->renderView('BloomUserBundle:Registration:registerMail.html.twig', array('name' => $user->getusername())));
+            
+            $this->get('mailer')->send($message);
+
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
             return $response;

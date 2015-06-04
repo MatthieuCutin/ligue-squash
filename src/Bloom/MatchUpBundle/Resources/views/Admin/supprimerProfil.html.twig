@@ -1,0 +1,31 @@
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Homepage{% endblock %}
+
+{% block body %}
+	<h1>Supprimer un Profil</h1>
+
+{% if form is defined %}
+
+	{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+	    <div class="input-block-level">
+	        {{ form_label(form.username, 'Nom du profil') }}
+	        {{ form_errors(form.username) }}
+	        {{ form_widget(form.username) }}
+	    </div>
+
+	<input type="submit" class="btn btn-primary" />
+	<a href="{{ path('bloom_match_up_admin') }}" class="btn margin-left-15">Annuler</a>
+
+	{{ form_end(form) }}
+
+{% else %}
+
+<p>Le profil a été supprimé</p>
+
+{% endif %}
+
+{% endblock %}

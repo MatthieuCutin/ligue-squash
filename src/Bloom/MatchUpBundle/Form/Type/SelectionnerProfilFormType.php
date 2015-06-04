@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Doctrine\ORM\EntityRepository;
 
-class AdversairePouleFormType extends AbstractType
+class SelectionnerProfilFormType extends AbstractType
 {
 
     private $securityContext;
@@ -45,7 +45,7 @@ class AdversairePouleFormType extends AbstractType
                     'property' => 'username',
                     'query_builder' => function (EntityRepository $er) use ($user) {
 
-                        return $er->FindByVicInPouleForm($user->getpoule(), $user->getusername());
+                        return $er->findAllForm();
                     },
                 );
 
@@ -56,14 +56,13 @@ class AdversairePouleFormType extends AbstractType
 
     public function getName()
     {
-        return 'bloom_adversaire_poule';
+        return 'bloom_selectionner_profil';
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Bloom\UserBundle\Entity\User',
-            'csrf_protection' => false,
         ));
     }
 }

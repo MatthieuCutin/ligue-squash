@@ -82,6 +82,15 @@ class UserRepository extends EntityRepository
 		return $qb;
 	}
 
+	public function findAllForm()
+	{
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select('u')
+		->from('BloomUserBundle:User', 'u');
+
+		return $qb;
+	}
+
 	public function FindByPouleAndVicAndSets()
 	{
 		$qb = $this->_em->createQueryBuilder();

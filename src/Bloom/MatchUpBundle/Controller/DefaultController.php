@@ -19,6 +19,10 @@ class DefaultController extends Controller
 
 	public function EntrerResultatAction(Request $request)
 	{
+/* Objectif : entrer une rencontre en base de donnée avec les informations sur le vainqueur, le perdant et le score du perdant
+Cette action modifie également une rencontre déjà présente en base de donnée.
+*/
+		//Création du formulaire
 		$rencontre = new Rencontre();
         $user = $this->container->get('security.context')->getToken()->getUser();
         $form = $this->createForm('bloom_adversaire_poule_score', $rencontre);
@@ -33,12 +37,14 @@ class DefaultController extends Controller
 
 				if ($form->isValid()) {
 
-					$test = $form->get('IdVainqueur')->getData();
-					$scorePerdant = $form->get('Scoreperdant')->getData();
+					//Je récupère les données du formulaire
+					$test = $form->get('idVainqueur')->getData();
+					$scorePerdant = $form->get('scorePerdant')->getData();
 					$adversaireUsername = $form->get('User')->getData();
 
 					$adversaireUsername = (string) $adversaireUsername;
 
+					//je récupère l'objet adversaire au complet
 					$repositoryUser = $this->getDoctrine()
 					->getManager()
 					->getRepository('BloomUserBundle:User');
@@ -51,6 +57,7 @@ class DefaultController extends Controller
 
 					$em = $this->getDoctrine()->getEntityManager();
 
+					//la variable test indique le vainqueur : 0-> user a gagné , 1-> adversaire a gagné
 					if ($test == 0) {
 						$rencontre -> setIdVainqueur($user -> getId());
 						$rencontre -> setIdPerdant($adversaire -> getId());	
@@ -59,17 +66,20 @@ class DefaultController extends Controller
 						$user -> setSets($user -> getSets() + 3);
 						$adversaire -> setSets($adversaire -> getSets() + $scorePerdant);
 
+						//je cherche s'il existe déjà une rencontre entre ces deux joueurs
 						$rencontreTest1 = $repositoryRencontre->findOneByRencontreByIdVainqueurAndIdPerdant($rencontre->getIdVainqueur(), $rencontre->getIdPerdant());
 						$rencontreTest2 = $repositoryRencontre->findOneByRencontreByIdVainqueurAndIdPerdant($rencontre->getIdPerdant(), $rencontre->getIdVainqueur());
 
 
-						if ($rencontreTest1) {
+						if ($rencontreTest1) { //Une rencontre existe et user avait gagné
 
+							//J'annule' les valeurs des victoires et sets de la précédente rencontre
 							$user -> setVictoires($user -> getVictoires() - 1);
 							$user -> setSets($user -> getSets() - 3);
 							$scorePerdantPrecedentMatch = $rencontreTest1 -> getScorePerdant();
 							$adversaire -> setSets($adversaire -> getSets() - $scorePerdantPrecedentMatch);
 
+							//Je rentre les nouvelles valeurs
 							$rencontreTest1 -> setScorePerdant($scorePerdant);
 							$rencontreTest1 -> setIdVainqueur($user -> getId());
 							$rencontreTest1 -> setIdPerdant($adversaire -> getId());						
@@ -77,7 +87,7 @@ class DefaultController extends Controller
 
 
 						}
-						elseif ($rencontreTest2) {
+						elseif ($rencontreTest2) { //Une rencontre existe et adversaire avait gagné
 
 							$adversaire -> setVictoires($adversaire -> getVictoires() - 1);
 							$adversaire -> setSets($adversaire -> getSets() - 3);
@@ -89,7 +99,7 @@ class DefaultController extends Controller
 							$rencontreTest2 -> setIdPerdant($adversaire -> getId());						
 							$em->flush();					
 						}
-						else {
+						else { //Aucune rencontre n'existait
 							$rencontre -> setScorePerdant($scorePerdant);						
 							$user->addRencontre($rencontre);
 							$userManager = $this->get('fos_user.user_manager');
@@ -97,7 +107,7 @@ class DefaultController extends Controller
 						}
 					}
 
-					elseif ($test == 1) {
+					elseif ($test == 1) { //idem sauf que cette fois c'est le cas adversaire a gagné
 						$rencontre -> setIdVainqueur($adversaire -> getId());
 						$rencontre -> setIdPerdant($user -> getId());
 
@@ -160,6 +170,13 @@ class DefaultController extends Controller
 
 	public function AfficherPouleAction( $NumeroPoule = 0 )
 	{
+/* Objectif : Récupérer les infos sur les joueurs et les rencontres pour les passer à la vue
+*/
+
+		//Par défaut on ne précise pas quelle poule on souhaite afficher (numeroPoule=0), si user est dans une poule on affiche
+		//sa poule par defaut, sinon on affiche la poule 1.
+
+		//La vue classementPoule peut demander à afficher une autre poule.
 		if ($NumeroPoule == 0) {
 			$user = $this->container->get('security.context')->getToken()->getUser();
 
@@ -171,6 +188,7 @@ class DefaultController extends Controller
 			}
 		}
 
+		//Je construit le système de poules
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomUserBundle:User');
@@ -180,10 +198,10 @@ class DefaultController extends Controller
 
 		$NombreJoueurs = count($listejoueurs);
 		$NombrePoules = floor($NombreJoueurs/$NombreJoueursParPoule); 
-		if ($NombrePoules ==0) {return $this->render('BloomMatchUpBundle:Default:classementpoule.html.twig');}
+		if ($NombrePoules ==0) {return $this->render('BloomMatchUpBundle:Default:classementpoule.html.twig');} //quand on a pas encore de poules
 		$NombreGrandesPoules = $NombreJoueurs % $NombrePoules;
 
-
+		//Je récupère les Id des joueurs de la poule
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomUserBundle:User');
@@ -193,6 +211,7 @@ class DefaultController extends Controller
 			$joueursId[$i] = $classementpoule[$i] -> getId();
 		}
 
+		//Je récupère toutes les rencontres
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomMatchUpBundle:Rencontre');
@@ -222,6 +241,9 @@ class DefaultController extends Controller
 
 	public function GenererPouleAction()
 	{
+/* Objectif : construire les nouvelles poules en prenant en compte les résultats des précédentes et les volontés des joueurs
+de participer ou non à la suivante.
+*/
 
 		//je récupère tous ceux qui étaient inscrit dans une poule
 		$repository = $this->getDoctrine()
@@ -243,7 +265,8 @@ class DefaultController extends Controller
 		for ($i=0; $i < count($listeActuelsParticipants) ; $i++) { 
 			$listeActuelsParticipants[$i] -> setNouvellePoule( $listeActuelsParticipants[$i] -> getpoule() );
 		}
-		//j'amorce la boucle
+		//je réalise une boucle car je ne sais pas a priori combien j'avais de poules si j'ai changé le paramètre
+		//NombreJoueursParPoule
 		$i = 1;
 
 		$repository = $this->getDoctrine()
@@ -374,6 +397,7 @@ class DefaultController extends Controller
 			->getRepository('BloomUserBundle:User');
 			$joueurs = $repository->FindByPouleAndName($user -> getpoule());
 
+			//J'enlève user
 			for ($i=0; $i < count($joueurs); $i++) { 
 				if ($joueurs[$i] !== $user) {
 					$joueursPasses[$i] = $joueurs[$i];

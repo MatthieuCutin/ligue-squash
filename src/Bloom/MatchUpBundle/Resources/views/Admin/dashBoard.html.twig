@@ -6,11 +6,11 @@
 {% block body %}
 	<h1>Page d'administration</h1>
 
-<a href="{{ path('bloom_match_up_admin_ajouter_profil') }}" class="btn">Ajouter un joueur</a>
+<a href="{{ path('fos_user_registration_register') }}" class="btn">Ajouter un joueur</a>
 <a href="{{ path('bloom_match_up_admin_supprimer_profil') }}" class="btn">Supprimer un joueur</a>
 
 <a href="{{ path('bloom_match_up_admin_modifier_profil') }}" class="btn">Modifier le profil d'un joueur</a>
 
-<a href="{{ path('bloom_match_up_admin_modifier_resultat') }}" class="btn">Modifier les résultats d'un joueur</a>
+<a href="{{ path('bloom_match_up_admin_selectionner_profil') }}" class="btn">Modifier les résultats d'un joueur</a>
 
 {% endblock %}

@@ -13,6 +13,17 @@ services:
         tags:
             - { name: form.type, alias: bloom_adversaire_poule_score }
 
+    bloom_match_up.form.type.SelectionnerProfilFormType:
+        class: Bloom\MatchUpBundle\Form\Type\SelectionnerProfilFormType
+        arguments: ["@security.context"]
+        tags:
+            - { name: form.type, alias: bloom_selectionner_profil }
+
+    bloom_match_up.form.type.ModifierProfilFormType:
+        class: Bloom\MatchUpBundle\Form\Type\ModifierProfilFormType
+        tags:
+            - { name: form.type, alias: bloom_modifier_profil }
+
 #    bloom_match_up.example:
 #        class: %bloom_match_up.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
