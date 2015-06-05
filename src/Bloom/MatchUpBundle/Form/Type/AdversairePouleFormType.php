@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -15,20 +17,13 @@ use Doctrine\ORM\EntityRepository;
 class AdversairePouleFormType extends AbstractType
 {
 
-    private $securityContext;
-
-    public function __construct(SecurityContext $securityContext)
-    {
-        $this->securityContext = $securityContext;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
         ;
 
-        // grab the user, do a quick sanity check that one exists
-        $user = $this->securityContext->getToken()->getUser();
+        $session = new Session();
+        $user = $session -> get('profil');
         if (!$user) {
             throw new \LogicException(
                 'The AdversairePouleFormType cannot be used without an authenticated user!'

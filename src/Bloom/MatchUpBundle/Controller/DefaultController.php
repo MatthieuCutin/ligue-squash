@@ -13,6 +13,7 @@ use Bloom\MatchUpBundle\Entity\Rencontre;
 use Bloom\MatchUpBundle\Form\Type\AdversairePouleFormType;
 use Bloom\MatchUpBundle\Form\Type\AdversairePouleScoreFormType;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends Controller
 {
@@ -25,6 +26,10 @@ Cette action modifie également une rencontre déjà présente en base de donné
 		//Création du formulaire
 		$rencontre = new Rencontre();
         $user = $this->container->get('security.context')->getToken()->getUser();
+
+		$session = new Session();
+		$session -> set('profil', $user);
+
         $form = $this->createForm('bloom_adversaire_poule_score', $rencontre);
 
 	    $request = $this->get('request');
@@ -376,10 +381,17 @@ de participer ou non à la suivante.
 
 	public function HomepageAction()
 	{
+
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomUserBundle:User');
 		$listejoueurs = $repository->FindByPouleAndVicAndSets();
+
+		$user = $this->container->get('security.context')->getToken()->getUser();
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$em->flush();
+
 
 		return $this->render('BloomMatchUpBundle:Default:homepage.html.twig', array(
 			    	'listejoueurs'    => $listejoueurs

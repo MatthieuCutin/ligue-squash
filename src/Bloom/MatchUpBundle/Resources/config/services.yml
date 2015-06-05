@@ -4,7 +4,6 @@ parameters:
 services:
     bloom_match_up.form.type.AdversairePouleFormType:
         class: Bloom\MatchUpBundle\Form\Type\AdversairePouleFormType
-        arguments: ["@security.context"]
         tags:
             - { name: form.type, alias: bloom_adversaire_poule }
 

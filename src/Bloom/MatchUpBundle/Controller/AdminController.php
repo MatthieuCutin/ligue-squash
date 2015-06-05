@@ -23,6 +23,11 @@ class AdminController extends Controller
 
 	public function SupprimerProfilAction()
 	{
+
+	    if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        	throw new AccessDeniedException();
+    	}
+
 		$profil = new User;
         $user = $this->container->get('security.context')->getToken()->getUser();
         $form = $this->createForm('bloom_selectionner_profil', $profil);
@@ -61,6 +66,10 @@ class AdminController extends Controller
 
 	public function ModifierProfilAction()
 	{
+	    if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        	throw new AccessDeniedException();
+    	}
+
 		$profil = new User;
         $user = $this->container->get('security.context')->getToken()->getUser();
         $form = $this->createForm('bloom_modifier_profil', $profil);
@@ -112,6 +121,10 @@ class AdminController extends Controller
 
 	public function SelectionnerProfilAction()
 	{
+	    if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        	throw new AccessDeniedException();
+    	}
+
 		$profil = new User;
         $user = $this->container->get('security.context')->getToken()->getUser();
         $form = $this->createForm('bloom_selectionner_profil', $profil);
@@ -146,13 +159,21 @@ class AdminController extends Controller
 			));
 	}
 
-		public function ModifierResultatAction($idProfil)
+		public function ModifierResultatAction($idProfil, Request $request)
 	{
-
+	    if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        	throw new AccessDeniedException();
+    	}
+		
+		//attention ici $user ne désigne pas l'utilisateur mais le profil selectionné juste avant
+		//c'est pour pouvoir réutiliser le code que je n'ai pas changé $user
         $repositoryUser = $this->getDoctrine()
 					->getManager()
 					->getRepository('BloomUserBundle:User');
 		$user = $repositoryUser->LoadUserById($idProfil);
+
+		$session = new Session();
+		$session -> set('profil', $user);
 
 		$rencontre = new Rencontre();					
         $form = $this->createForm('bloom_adversaire_poule_score', $rencontre);

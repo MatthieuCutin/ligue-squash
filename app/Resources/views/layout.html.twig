@@ -28,6 +28,10 @@
             <li class="divider-vertical"></li>
             <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
             <li class="divider-vertical"></li>
+            {% if is_granted('ROLE_ADMIN') %}
+            <li class="pull-right"><a href="{{ path('bloom_match_up_admin') }}">Administration</a></li>
+            <li class="divider-vertical"></li>
+            {% endif %}
             <li class="pull-right"><a href="{{path('fos_user_security_logout') }}">Déconnexion</a></li> 
           </ul>
         </div>
