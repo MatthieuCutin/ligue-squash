@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class DefaultController extends Controller
 {
 
-	public function EntrerResultatAction(Request $request)
+	public function entrerResultatAction(Request $request)
 	{
 /* Objectif : entrer une rencontre en base de donnée avec les informations sur le vainqueur, le perdant et le score du perdant
 Cette action modifie également une rencontre déjà présente en base de donnée.
@@ -34,7 +34,7 @@ Cette action modifie également une rencontre déjà présente en base de donné
 
 	    $request = $this->get('request');
 
-	    if ($user->getpoule() >0) {
+	    if ($user->getPoule() >0) {
 
 		    if ($request->getMethod() == 'POST') {
 
@@ -45,7 +45,7 @@ Cette action modifie également une rencontre déjà présente en base de donné
 					//Je récupère les données du formulaire
 					$test = $form->get('idVainqueur')->getData();
 					$scorePerdant = $form->get('scorePerdant')->getData();
-					$adversaireUsername = $form->get('User')->getData();
+					$adversaireUsername = $form->get('user')->getData();
 
 					$adversaireUsername = (string) $adversaireUsername;
 
@@ -53,14 +53,14 @@ Cette action modifie également une rencontre déjà présente en base de donné
 					$repositoryUser = $this->getDoctrine()
 					->getManager()
 					->getRepository('BloomUserBundle:User');
-					$adversaire = $repositoryUser->LoadUserByUsername($adversaireUsername);
+					$adversaire = $repositoryUser->loadUserByUsername($adversaireUsername);
 
 					$repositoryRencontre = $this->getDoctrine()
 					->getManager()
 					->getRepository('BloomMatchUpBundle:Rencontre');
 
 
-					$em = $this->getDoctrine()->getEntityManager();
+					$em = $this->getDoctrine()->getManager();
 
 					//la variable test indique le vainqueur : 0-> user a gagné , 1-> adversaire a gagné
 					if ($test == 0) {
@@ -156,24 +156,24 @@ Cette action modifie également une rencontre déjà présente en base de donné
 						}								
 					}				
 
-					$response = $this->forward('BloomMatchUpBundle:Default:AfficherPoule');
+					$response = $this->forward('BloomMatchUpBundle:Default:afficherPoule');
 
 					return $response;
 				}
 		  	}
 
-			return $this->render('BloomMatchUpBundle:Default:entrerresultat.html.twig', array(
+			return $this->render('BloomMatchUpBundle:Default:entrerResultat.html.twig', array(
 		    	'form' => $form->createView(),
 		    	));
 		}
 
 		else {
-			return $this->render('BloomMatchUpBundle:Default:entrerresultat.html.twig');
+			return $this->render('BloomMatchUpBundle:Default:entrerResultat.html.twig');
 		}
 	
 	}
 
-	public function AfficherPouleAction( $NumeroPoule = 0 )
+	public function afficherPouleAction( $numeroPoule = 0 )
 	{
 /* Objectif : Récupérer les infos sur les joueurs et les rencontres pour les passer à la vue
 */
@@ -182,14 +182,14 @@ Cette action modifie également une rencontre déjà présente en base de donné
 		//sa poule par defaut, sinon on affiche la poule 1.
 
 		//La vue classementPoule peut demander à afficher une autre poule.
-		if ($NumeroPoule == 0) {
+		if ($numeroPoule == 0) {
 			$user = $this->container->get('security.context')->getToken()->getUser();
 
-			if ($NumeroPoule = $user -> getpoule() > 0) {
-				$NumeroPoule = $user -> getpoule();
+			if ($numeroPoule = $user -> getPoule() > 0) {
+				$numeroPoule = $user -> getPoule();
 			}
 			else{
-				$NumeroPoule = 1;
+				$numeroPoule = 1;
 			}
 		}
 
@@ -197,45 +197,45 @@ Cette action modifie également une rencontre déjà présente en base de donné
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomUserBundle:User');
-		$listejoueurs = $repository->findAll();
+		$listeJoueurs = $repository->findAll();
 
-		$NombreJoueursParPoule = $this->container->getParameter('NombreJoueursParPoule');
+		$nombreJoueursParPoule = $this->container->getParameter('nombreJoueursParPoule');
 
-		$NombreJoueurs = count($listejoueurs);
-		$NombrePoules = floor($NombreJoueurs/$NombreJoueursParPoule); 
-		if ($NombrePoules ==0) {return $this->render('BloomMatchUpBundle:Default:classementpoule.html.twig');} //quand on a pas encore de poules
-		$NombreGrandesPoules = $NombreJoueurs % $NombrePoules;
+		$nombreJoueurs = count($listeJoueurs);
+		$nombrePoules = floor($nombreJoueurs/$nombreJoueursParPoule); 
+		if ($nombrePoules ==0) {return $this->render('BloomMatchUpBundle:Default:classementPoule.html.twig');} //quand on a pas encore de poules
+		$nombreGrandesPoules = $nombreJoueurs % $nombrePoules;
 
 		//Je récupère les Id des joueurs de la poule
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomUserBundle:User');
-		$classementpoule = $repository->findByVicInPoule($NumeroPoule);
+		$classementPoule = $repository->findByVicInPoule($numeroPoule);
 
-		for ($i=0; $i < count($classementpoule) ; $i++) {
-			$joueursId[$i] = $classementpoule[$i] -> getId();
+		for ($i=0; $i < count($classementPoule) ; $i++) {
+			$joueursId[$i] = $classementPoule[$i] -> getId();
 		}
 
 		//Je récupère toutes les rencontres
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomMatchUpBundle:Rencontre');
-		$listerencontres = $repository->findAll();
+		$listeRencontres = $repository->findAll();
 
 		$rencontresIdVainqueur[0] = 0;
 		$rencontresIdPerdant[0] =0;
 		$scorePerdant[0] =0;
 
-		for ($i=0; $i < count($listerencontres) ; $i++) {
-			$rencontresIdVainqueur[$i] = $listerencontres[$i] -> getIdVainqueur();
-			$rencontresIdPerdant[$i] = $listerencontres[$i] -> getIdPerdant();
-			$scorePerdant[$i] = $listerencontres[$i] -> getScorePerdant();
+		for ($i=0; $i < count($listeRencontres) ; $i++) {
+			$rencontresIdVainqueur[$i] = $listeRencontres[$i] -> getIdVainqueur();
+			$rencontresIdPerdant[$i] = $listeRencontres[$i] -> getIdPerdant();
+			$scorePerdant[$i] = $listeRencontres[$i] -> getScorePerdant();
 		}
 
-	    return $this->render('BloomMatchUpBundle:Default:classementpoule.html.twig', array(
-	    	'classementpoule' => $classementpoule,
-	    	'NumeroPoule'     => $NumeroPoule,
-	    	'NombrePoules'    => $NombrePoules,
+	    return $this->render('BloomMatchUpBundle:Default:classementPoule.html.twig', array(
+	    	'classementPoule' => $classementPoule,
+	    	'numeroPoule'     => $numeroPoule,
+	    	'nombrePoules'    => $nombrePoules,
 	    	'rencontresIdVainqueur' => $rencontresIdVainqueur,
 	    	'rencontresIdPerdant'   => $rencontresIdPerdant,
 	    	'scorePerdant'          => $scorePerdant, 
@@ -244,170 +244,35 @@ Cette action modifie également une rencontre déjà présente en base de donné
 
 	}
 
-	public function GenererPouleAction()
-	{
-/* Objectif : construire les nouvelles poules en prenant en compte les résultats des précédentes et les volontés des joueurs
-de participer ou non à la suivante.
-*/
-
-		//je récupère tous ceux qui étaient inscrit dans une poule
-		$repository = $this->getDoctrine()
-		->getManager()
-		->getRepository('BloomUserBundle:User');
-		$listeActuelsParticipants = $repository->findActuelsParticipants();
-
-		//je récupère ceux qui veulent participer
-		$listeFutursParticipants = $repository->findFutursParticipants();
-
-		for ($i=0; $i < count($listeFutursParticipants); $i++) { 
-			$listeFutursParticipants[$i] -> setNouvellePoule(0);
-		}
-
-		//je les classe
-
-		//je fais une boucle car je ne connais pas le nombre de poules établies
-
-		for ($i=0; $i < count($listeActuelsParticipants) ; $i++) { 
-			$listeActuelsParticipants[$i] -> setNouvellePoule( $listeActuelsParticipants[$i] -> getpoule() );
-		}
-		//je réalise une boucle car je ne sais pas a priori combien j'avais de poules si j'ai changé le paramètre
-		//NombreJoueursParPoule
-		$i = 1;
-
-		$repository = $this->getDoctrine()
-		->getManager()
-		->getRepository('BloomUserBundle:User');
-		$classementParPoule = $repository->findByVicInPoule($i);
-
-		$userManager = $this->get('fos_user.user_manager');
-
-		while ( count($classementParPoule) >0 ) {
-
-			for ($j = 1; $j <= 2; $j++) {
-
-				$joueurAClasser = $classementParPoule[count($classementParPoule) - $j];
-				$joueurAClasser -> setNouvellepoule($i - 1);
-
-				$userManager->updateUser($joueurAClasser);
-
-				$joueurAClasser = $classementParPoule[ $j - 1 ];
-				$joueurAClasser -> setNouvellePoule($i + 1);
-
-				$userManager->updateUser($joueurAClasser);
-			}
-
-			$i = $i+1;
-			$classementParPoule = $repository->findByVicInPoule($i);
-		}
-
-		//je sors les anciens joueurs qui ne veulent pas faire la suivante
-		$listeNoFutursParticipants = $repository->findNoFutursParticipants();
-
-		for ($i=0; $i < count($listeNoFutursParticipants); $i++) { 
-			$listeNoFutursParticipants[$i] -> setNouvellePoule(NULL);
-
-			$userManager->updateUser($listeNoFutursParticipants[$i]);
-		}
-
-		//on obtient le classement des joueurs à la prochaine
-		$NouveauClassementJoueurs = $repository->findByPouleAndVicAndSetsDESC();
-
-		//on détermine le nombre de poules
-		$NombreJoueursParPoule = $this->container->getParameter('NombreJoueursParPoule');
-
-		$NombreJoueurs = count($listeFutursParticipants);
-		$NombrePoules = floor($NombreJoueurs/$NombreJoueursParPoule);
-		$NombreGrandesPoules = $NombreJoueurs % $NombrePoules;
-
-		//je réinitialise la colonne poule
-		$listeUsers = $repository->findAll();
-
-		for ($i=0; $i < count($listeUsers); $i++) { 
-			$listeUsers[$i] -> setPoule(NULL);
-			$userManager->updateUser($listeUsers[$i]);
-		}
-
-		//je ventile dans les poules
-		if ($NombreGrandesPoules > 0) {
-			for ($i=1; $i <= $NombreGrandesPoules ; $i++) {
-				for ($j=0; $j < $NombreJoueursParPoule+1 ; $j++) {
-
-					$k = $j + ($i-1)*($NombreJoueursParPoule+1);
-
-					$NouveauClassementJoueurs[$k] -> setPoule($i);
-					$NouveauClassementJoueurs[$k] -> setVictoires(0);
-					$NouveauClassementJoueurs[$k] -> setSets(0);					
-
-					$userManager->updateUser($NouveauClassementJoueurs[$k]);
-				}		
-			}
-		}
-
-		for ($i=1; $i <= $NombrePoules - $NombreGrandesPoules ; $i++) {
-			for ($j=0; $j < $NombreJoueursParPoule ; $j++) {
-
-				$k = $j + $NombreGrandesPoules*($NombreJoueursParPoule + 1) + ($i-1)*($NombreJoueursParPoule);
-
-				$NouveauClassementJoueurs[$k] -> setPoule($i + $NombreGrandesPoules);
-				$NouveauClassementJoueurs[$k] -> setVictoires(0);
-				$NouveauClassementJoueurs[$k] -> setSets(0);				
-
-				$userManager->updateUser($NouveauClassementJoueurs[$k]);
-			}		
-		}
-
-		//je réinitialise la colonne nouvelle poule
-		$listeUsers = $repository->findAll();
-
-		for ($i=0; $i < count($listeUsers); $i++) { 
-			$listeUsers[$i] -> setNouvellePoule(NULL);
-			$userManager->updateUser($listeUsers[$i]);
-		}
-
-		//je réinitialise les tables de rencontre
-		$em = $this->getDoctrine()
-			->getManager();
-
-		$connection = $em->getConnection();
-		$platform   = $connection->getDatabasePlatform();
-  
-		$connection->executeUpdate($platform->getTruncateTableSQL('Rencontre', false /* whether to cascade */));
-
-	    $response = $this->forward('BloomMatchUpBundle:Default:homepage');
-
-	    return $response;
-
-	}
-
-	public function HomepageAction()
+	public function homepageAction()
 	{
 
 		$repository = $this->getDoctrine()
 		->getManager()
 		->getRepository('BloomUserBundle:User');
-		$listejoueurs = $repository->FindByPouleAndVicAndSets();
+		$listeJoueurs = $repository->findByPouleAndVicAndSets();
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$em->flush();
 
 
 		return $this->render('BloomMatchUpBundle:Default:homepage.html.twig', array(
-			    	'listejoueurs'    => $listejoueurs
+			    	'listeJoueurs'    => $listeJoueurs
 			    	));
 	}
 
-	public function MatchupAction()
+	public function matchupAction()
 	{
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
 		//Je récupère les joueurs de la poule
-		if ($user->getpoule() !== NULL) {
+		if ($user->getPoule() !== NULL) {
 			$repository = $this->getDoctrine()
 			->getManager()
 			->getRepository('BloomUserBundle:User');
-			$joueurs = $repository->FindByPouleAndName($user -> getpoule());
+			$joueurs = $repository->findByPouleAndName($user -> getPoule());
 
 			//J'enlève user
 			for ($i=0; $i < count($joueurs); $i++) { 
@@ -426,7 +291,7 @@ de participer ou non à la suivante.
 		}
 	}
 
-	public function ProfilAction($idAdversaire)
+	public function profilAction($idAdversaire)
 	{
 		$repository = $this->getDoctrine()
 		->getManager()

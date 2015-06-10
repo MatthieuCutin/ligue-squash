@@ -26,7 +26,7 @@ class AdversairePouleScoreFormType extends AbstractType
                 'required'  => true,
                 ))
 
-            ->add('User', 'bloom_adversaire_poule', array('mapped' => false));
+            ->add('user', 'bloom_adversaire_poule', array('mapped' => false));
         ;
     }
 
@@ -40,7 +40,6 @@ class AdversairePouleScoreFormType extends AbstractType
       $resolver->setDefaults(array(
         'data_class' => 'Bloom\MatchUpBundle\Entity\Rencontre',
         'cascade_validation' => true,
-        'csrf_protection' => false,
         ));
     }
 }

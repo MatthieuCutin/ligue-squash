@@ -4,24 +4,24 @@
 
 {% block body %}
 
-{% if NumeroPoule is defined %}
-<h1>Poule {{NumeroPoule}}</h1>
+{% if numeroPoule is defined %}
+<h1>Poule {{numeroPoule}}</h1>
 
 <ul class="nav nav-pills">
-  {% for i in 1..NombrePoules %}
-  <li><a href="{{ path('bloom_match_up_afficher_poule' , { 'NumeroPoule' : i }) }}">Poule {{i}} </a></li>
+  {% for i in 1..nombrePoules %}
+  <li><a href="{{ path('bloom_match_up_afficher_poule' , { 'numeroPoule' : i }) }}">Poule {{i}} </a></li>
   {% endfor %}
 </ul>
 
 <table class="table table-hover table-bordered">
     <tr>
       <td># Joueur</td>
-{% for j in classementpoule%}
+{% for j in classementPoule%}
       <td><p class="text-center">{{loop.index}}</p></td> 
 {% endfor %}
    </tr>
 
-{% for j in classementpoule %}
+{% for j in classementPoule %}
 
         <tr>
           <td >{{loop.index}} {{ j.username }}</td>

@@ -19,25 +19,21 @@ bloom_match_up_profil:
     path:      /profil/{idAdversaire}
     defaults: { _controller: BloomMatchUpBundle:Default:profil, idAdversaire: 1 }
 
-bloom_match_up_generer_poule:
-    path:      /genererpoule
-    defaults: { _controller: BloomMatchUpBundle:Default:genererpoule }
-
 bloom_match_up_afficher_poule:
-    path:      /afficherpoule
-    defaults: { _controller: BloomMatchUpBundle:Default:afficherpoule }
+    path:      /afficher-poule
+    defaults: { _controller: BloomMatchUpBundle:Default:afficherPoule }
 
 bloom_match_up_entrer_resultat:
-    path:      /entrerresultat
-    defaults: { _controller: BloomMatchUpBundle:Default:entrerresultat }
+    path:      /entrer-resultat
+    defaults: { _controller: BloomMatchUpBundle:Default:entrerResultat }
 
 bloom_match_up_afficher_poule:
-    path:      /afficherpoule/{NumeroPoule}
-    defaults: { _controller: BloomMatchUpBundle:Default:afficherpoule, NumeroPoule: 0 }
+    path:      /afficher-poule/{numeroPoule}
+    defaults: { _controller: BloomMatchUpBundle:Default:afficherPoule, numeroPoule: 0 }
 
 bloom_match_up_admin:
     path:     /admin
-    defaults: { _controller: BloomMatchUpBundle:Admin:dashboard }
+    defaults: { _controller: BloomMatchUpBundle:Admin:dashBoard }
 
 bloom_match_up_admin_supprimer_profil:
     path:     /admin/supprimer-profil
@@ -54,3 +50,7 @@ bloom_match_up_admin_modifier_profil:
 bloom_match_up_admin_modifier_resultat:
     path:     /admin/modifier-resultat/{idProfil}
     defaults: { _controller: BloomMatchUpBundle:Admin:ModifierResultat }
+
+bloom_match_up_admin_generer_poule:
+    path:      /admin/genererPoule
+    defaults: { _controller: BloomMatchUpBundle:Admin:genererPoule }

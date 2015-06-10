@@ -21,7 +21,7 @@ class ModifierProfilFormType extends AbstractType
             ->add('victoires', 'integer', array('required'  => false ))
             ->add('sets', 'integer', array('required'  => false ))
 
-            ->add('User', 'bloom_selectionner_profil', array('mapped' => false));
+            ->add('user', 'bloom_selectionner_profil', array('mapped' => false));
         ;
     }
 

@@ -26,7 +26,7 @@ class AdversairePouleFormType extends AbstractType
         $user = $session -> get('profil');
         if (!$user) {
             throw new \LogicException(
-                'The AdversairePouleFormType cannot be used without an authenticated user!'
+                'Aucun utilisateur authentifié.'
             );
         }
 
@@ -40,7 +40,7 @@ class AdversairePouleFormType extends AbstractType
                     'property' => 'username',
                     'query_builder' => function (EntityRepository $er) use ($user) {
 
-                        return $er->FindByVicInPouleForm($user->getpoule(), $user->getusername());
+                        return $er->findByVicInPouleForm($user->getPoule(), $user->getUsername());
                     },
                 );
 
@@ -58,7 +58,6 @@ class AdversairePouleFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Bloom\UserBundle\Entity\User',
-            'csrf_protection' => false,
         ));
     }
 }
