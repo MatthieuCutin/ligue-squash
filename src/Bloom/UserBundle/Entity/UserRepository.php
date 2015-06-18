@@ -91,12 +91,20 @@ class UserRepository extends EntityRepository
 		return $qb;
 	}
 
+    public function findAllOrderedUsernameForm()
+    {
+		$qb = $this->createQueryBuilder('u')
+		->orderBy('u.username', 'ASC');
+
+		return $qb;
+    }
+
 	public function FindByPouleAndVicAndSets()
 	{
 		$qb = $this->_em->createQueryBuilder();
 		$qb->select('u')
 		->from('BloomUserBundle:User', 'u')	
-		->orderBy('u.poule', 'DESC')
+		->orderBy('u.poule', 'ASC')
 		->addOrderBy('u.victoires', 'DESC')
 		->addOrderBy('u.sets', 'DESC');
 

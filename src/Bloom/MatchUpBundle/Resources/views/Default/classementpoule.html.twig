@@ -23,74 +23,148 @@
 
 {% for j in classementPoule %}
 
-        <tr>
-          <td >{{loop.index}} {{ j.username }}</td>
-          <td><p class="text-center">{% if loop.index == 1 %}
-                X
-                  {% else %}
-                  {% for i in rencontresIdVainqueur %}
-                    {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.0 %}
-                V
-                {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.0 %}
-                {{scorePerdant[loop.index0]}}
-                {% endif %}
-                {% endfor %}
-              {% endif %}
-          </p></td>
-          <td><p class="text-center">{% if loop.index == 2 %}
-                X
-                  {% else %}
-                  {% for i in rencontresIdVainqueur %}
-                    {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.1 %}
-                V
-                {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.1 %}
-                {{scorePerdant[loop.index0]}}
-                {% endif %}
-                {% endfor %}
-              {% endif %}
-            </p></td>
-          <td><p class="text-center">{% if loop.index == 3 %}
-                X
-                  {% else %}
-                  {% for i in rencontresIdVainqueur %}
-                    {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.2 %}
-                V
-                {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.2 %}
-                {{scorePerdant[loop.index0]}}
-                {% endif %}
-                {% endfor %}
-              {% endif %}
-            </p></td>
-          <td><p class="text-center">{% if loop.index == 4 %}
-                X
-                  {% else %}
-                  {% for i in rencontresIdVainqueur %}
-                    {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.3 %}
-                V
-                {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.3 %}
-                {{scorePerdant[loop.index0]}}
-                {% endif %}
-                {% endfor %}
-              {% endif %}
-            </p></td>
-          {% if classementpoule[4] is defined %}<td><p class="text-center">
-            {% if loop.index == 5 %}
-                X
-                  {% else %}
-                  {% for i in rencontresIdVainqueur %}
-                    {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.4 %}
-                V
-                {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.4 %}
-                {{scorePerdant[loop.index0]}}
-                {% endif %}
-                {% endfor %}
-              {% endif %}
-              </p></td>{% endif %}        
-        </tr>
+  <tr>
+    <td >{{loop.index}} {{ j.username }}</td>
+    <td><p class="text-center">
+      {% if loop.index0 == 0 %}
+        X
+      {% else %}
+        {% for i in rencontresIdVainqueur %}
+          {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.0 %}
+            V
+          {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.0 %}
+            {{scorePerdant[loop.index0]}}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </p></td>
+
+    <td><p class="text-center">
+      {% if loop.index0 == 1 %}
+        X
+      {% else %}
+        {% for i in rencontresIdVainqueur %}
+          {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.1 %}
+            V
+          {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.1 %}
+            {{scorePerdant[loop.index0]}}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </p></td>
+
+    <td><p class="text-center">
+      {% if loop.index0 == 2 %}
+        X
+      {% else %}
+        {% for i in rencontresIdVainqueur %}
+          {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.2 %}
+            V
+          {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.2 %}
+            {{scorePerdant[loop.index0]}}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </p></td>
+
+    <td><p class="text-center">
+      {% if loop.index0 == 3 %}
+        X
+      {% else %}
+        {% for i in rencontresIdVainqueur %}
+          {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.3 %}
+            V
+          {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.3 %}
+            {{scorePerdant[loop.index0]}}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </p></td>
+
+    {% if classementPoule[4] is defined %}
+      <td><p class="text-center">
+        {% if loop.index0 == 4 %}
+          X
+        {% else %}
+          {% for i in rencontresIdVainqueur %}
+            {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.4 %}
+              V
+            {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.4 %}
+              {{scorePerdant[loop.index0]}}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </p></td>
+    {% endif %}
+
+    {% if classementPoule[5] is defined %}
+      <td><p class="text-center">
+        {% if loop.index0 == 5 %}
+          X
+        {% else %}
+          {% for i in rencontresIdVainqueur %}
+            {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.5 %}
+              V
+            {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.5 %}
+              {{scorePerdant[loop.index0]}}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </p></td>
+    {% endif %} 
+
+    {% if classementPoule[6] is defined %}
+      <td><p class="text-center">
+        {% if loop.index0 == 6 %}
+          X
+        {% else %}
+          {% for i in rencontresIdVainqueur %}
+            {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.6 %}
+              V
+            {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.6 %}
+              {{scorePerdant[loop.index0]}}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </p></td>
+    {% endif %}
+
+    {% if classementPoule[7] is defined %}
+      <td><p class="text-center">
+        {% if loop.index0 == 7 %}
+          X
+        {% else %}
+          {% for i in rencontresIdVainqueur %}
+            {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.7 %}
+              V
+            {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.7 %}
+              {{scorePerdant[loop.index0]}}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </p></td>
+    {% endif %}
+
+    {% if classementPoule[8] is defined %}
+      <td><p class="text-center">
+        {% if loop.index0 == 8 %}
+          X
+        {% else %}
+          {% for i in rencontresIdVainqueur %}
+            {% if rencontresIdVainqueur[loop.index0]  == j.Id and rencontresIdPerdant[loop.index0] == joueursId.8 %}
+              V
+            {% elseif rencontresIdPerdant[loop.index0]  == j.Id and rencontresIdVainqueur[loop.index0] == joueursId.8 %}
+              {{scorePerdant[loop.index0]}}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </p></td>
+    {% endif %}
+  </tr>
 
 {% endfor %}
-  </table>
-  
+</table>
+
   <a href="{{ path('bloom_match_up_entrer_resultat') }}" class="btn btn-primary margin-top-10">Entrer un résultat</a>
 
 {% else %}

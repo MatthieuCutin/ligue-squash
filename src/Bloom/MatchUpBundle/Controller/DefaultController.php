@@ -252,14 +252,25 @@ Cette action modifie également une rencontre déjà présente en base de donné
 		->getRepository('BloomUserBundle:User');
 		$listeJoueurs = $repository->findByPouleAndVicAndSets();
 
-		$user = $this->container->get('security.context')->getToken()->getUser();
+		//Je construit le système de poules
+		$repository = $this->getDoctrine()
+		->getManager()
+		->getRepository('BloomUserBundle:User');
+		$listeJoueursTot = $repository->findAll();
 
-		$em = $this->getDoctrine()->getManager();
-		$em->flush();
+		$nombreJoueursParPoule = $this->container->getParameter('nombreJoueursParPoule');
 
+		$nombreJoueurs = count($listeJoueursTot);
+		$nombrePoules = floor($nombreJoueurs/$nombreJoueursParPoule);
+
+		for ($i=1; $i <= $nombrePoules ; $i++) { 
+			$classementParPoules [$i] = $repository -> findByVicInPoule($i);
+		}
 
 		return $this->render('BloomMatchUpBundle:Default:homepage.html.twig', array(
-			    	'listeJoueurs'    => $listeJoueurs
+			    	'listeJoueurs'        => $listeJoueurs,
+			    	'classementParPoules' => $classementParPoules,
+			    	'nombrePoules'        => $nombrePoules
 			    	));
 	}
 

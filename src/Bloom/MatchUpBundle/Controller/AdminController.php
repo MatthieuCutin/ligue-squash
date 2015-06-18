@@ -353,12 +353,12 @@ de participer ou non à la suivante.
 			for ($j = 1; $j <= 2; $j++) {
 
 				$joueurAClasser = $classementParPoule[count($classementParPoule) - $j];
-				$joueurAClasser -> setNouvellepoule($i - 1);
+				$joueurAClasser -> setNouvellepoule($i + 1);
 
 				$userManager->updateUser($joueurAClasser);
 
 				$joueurAClasser = $classementParPoule[ $j - 1 ];
-				$joueurAClasser -> setNouvellePoule($i + 1);
+				$joueurAClasser -> setNouvellePoule($i - 1);
 
 				$userManager->updateUser($joueurAClasser);
 			}

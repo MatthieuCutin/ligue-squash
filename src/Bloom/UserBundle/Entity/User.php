@@ -151,6 +151,8 @@ class User extends BaseUser
         $this->path = 'ann.png';
         $this->participation = true;
         $this->rencontres = new ArrayCollection();
+        $this->sets = 0;
+        $this->victoires = 0;
     }
 
     /**

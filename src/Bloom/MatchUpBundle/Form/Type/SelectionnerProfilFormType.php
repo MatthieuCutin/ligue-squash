@@ -45,7 +45,7 @@ class SelectionnerProfilFormType extends AbstractType
                     'property' => 'username',
                     'query_builder' => function (EntityRepository $er) use ($user) {
 
-                        return $er->findAllForm();
+                        return $er->findAllOrderedUsernameForm();
                     },
                 );
 
