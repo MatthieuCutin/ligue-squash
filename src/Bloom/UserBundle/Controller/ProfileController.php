@@ -72,8 +72,6 @@ class ProfileController extends BaseController
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
 
-            $user->upload();
-
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {

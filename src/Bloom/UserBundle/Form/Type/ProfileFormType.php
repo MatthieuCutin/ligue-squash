@@ -35,7 +35,7 @@ class ProfileFormType extends AbstractType
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('tel', null, array('label' => 'Téléphone', 'translation_domain' => 'FOSUserBundle', 'required' => false))
             ->add('participation', 'checkbox', array('label' => 'Je participe à la prochaine poule', 'translation_domain' => 'FOSUserBundle', 'required' => false))
-            ->add('file', 'file', array('label' => 'Photo de profil', 'translation_domain' => 'FOSUserBundle', 'required' => false))            
+            ->add('imageFile', 'vich_image', array('required' => false, 'allow_delete' => true, 'download_link' => true))
             ->add('lundi', null, array('label' => 'Disponibilité le lundi', 'translation_domain' => 'FOSUserBundle', 'required' => false))
             ->add('mardi', null, array('label' => 'Disponibilité le mardi', 'translation_domain' => 'FOSUserBundle', 'required' => false))
             ->add('mercredi', null, array('label' => 'Disponibilité le mercredi', 'translation_domain' => 'FOSUserBundle', 'required' => false))

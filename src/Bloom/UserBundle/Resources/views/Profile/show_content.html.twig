@@ -2,11 +2,15 @@
 
 <div class="fos_user_user_show">
 	<div class="row">
-		<div class="span4 text-center">
-			<img src="{{ asset('img/profile/' ~ user.path) }}" />
-			<a href="{{ path('fos_user_profile_edit') }}" class="btn margin-top-10">Modifier mon profil</a>
+		<div class="span3 text-center">
+        {% if user.imageName %}<img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="imagename" class="span3"/>
+        {% else %}<img src="{{ asset('img/profile/ann.png') }}" alt="else" class="span3" />
+        {% endif %}
+			<a href="{{ path('fos_user_profile_edit') }}" class="btn margin-top-10 margin-left-30">Modifier mon profil</a>
+			<img src="{{ asset('img/login.jpg') | imagine_filter('my_thumb_in') }}" />
+
 		</div>
-		<div class="span8">
+		<div class="span8 offset1">
 			<p><em>Profil</em></p>			
 			<div class="span2">
 				<p>Nom d'utilisateur :</p>

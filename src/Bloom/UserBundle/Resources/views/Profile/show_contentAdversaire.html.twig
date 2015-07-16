@@ -3,7 +3,9 @@
 <div class="fos_user_user_show">
 	<div class="row">
 		<div class="span4 text-center">
-			<img src="{{ asset('img/profile/' ~ user.path) }}" />
+	        {% if user.imageName %}<img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="" class="span3"/>
+	        {% else %}<img src="{{ asset('img/profile/ann.png') }}" alt="" class="span3" />
+	        {% endif %}
 			<a href="{{ path('bloom_match_up_homepage') }}" class="btn btn-primary margin-top-10">Rencontrer</a>
 		</div>
 		<div class="span8">

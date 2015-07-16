@@ -8,18 +8,20 @@
 {% if joueursPasses is defined%}
 
     {% for j in joueursPasses %}
-      <div class="thumbnail rrow">
-  	   <img src="{{ asset('img/profile/' ~ j.path) }}" alt="" class="span3">
-       <div class="offset3">
-        <h4>{{ j.username }}</h4>
-        <p>Lundi : {{j.lundi}}</p>
-        <p>Mardi : {{j.mardi}}</p>
-        <p>Mercredi : {{j.mercredi}}</p>
-        <p>Jeudi : {{j.jeudi}}</p>
-        <p>Vendredi : {{j.vendredi}}</p>
-        <p>Samedi : {{j.samedi}}</p>
-        <a href="{{ path('bloom_match_up_profil' , { 'idAdversaire' : j.id }) }}" class="btn btn-primary">Rencontrer</a>
-      </div>
+      <div class="thumbnail">
+        {% if j.imageName %}<img src="{{ vich_uploader_asset(j, 'imageFile') }}" alt="imagename" class="span3"/>
+        {% else %}<img src="{{ asset('img/profile/ann.png') }}" alt="else" class="span3" />
+        {% endif %}
+        <div class="offset3">
+          <h4>{{ j.username }}</h4>
+          <p>Lundi : {{j.lundi}}</p>
+          <p>Mardi : {{j.mardi}}</p>
+          <p>Mercredi : {{j.mercredi}}</p>
+          <p>Jeudi : {{j.jeudi}}</p>
+          <p>Vendredi : {{j.vendredi}}</p>
+          <p>Samedi : {{j.samedi}}</p>
+          <a href="{{ path('bloom_match_up_profil' , { 'idAdversaire' : j.id }) }}" class="btn btn-primary">Rencontrer</a>
+        </div>
       </div>
     {% endfor %}
 

@@ -19,7 +19,8 @@ class AppKernel extends Kernel
             new Bloom\MatchUpBundle\BloomMatchUpBundle(),
             new Bloom\UserBundle\BloomUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
